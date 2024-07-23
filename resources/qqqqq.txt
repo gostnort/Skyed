@@ -1,0 +1,383 @@
+ SY: CA818/01JUN24 IAD/0  CC0039/NAM                                            
+CWT200000 UWT185764 CAW058311 UAW044075 WTN2 KG TCI                             
+777/300D/B2032      GTD/B81  POS/GATE BN143 AK00000 CD00000                     
+BDT1705   SD1735   ED1735   CI1638   CC0039+1                                   
+CNF/F8J42Y261  CAP/F6J35Y238   AV/F6J29Y101                                     
+ CAT/000/000/000***CREW 6/15***CREW SEAT BS11C,46J,17DH,57DEH,58-60DEH BLOCKED  
+*IADLAX R000/000/000   C000/000/000  B0000/000000                               
+        SB000/000/000  B0000                                                    
+        SA000/000/000                EXST00/00/00 XCR00/00/00 ZCR00/00/00       
+        RET000/000/000               CET000/000/000                             
+*IADPEK R000/006/138   C000/006/137  B0193/003576 UM002 WCH004                  
+        SB000/000/000  B0000         CHD009                                     
+        SA000/003/001                EXST00/00/00 XCR00/00/00 ZCR00/00/00       
+        RET000/008/138               CET000/006/137                             
+TOTALS* R000/006/138   C000/006/137  B0193/003576 UM002 WCH004                  
+        SB000/000/000  B0000         CHD009                                     
+        SA000/003/001                EXST00/00/00 XCR00/00/00 ZCR00/00/00       
+        RET000/008/138               CET000/006/137                             
+GS LAX/J001Y001                                                                 
+ID LAX/J001                                                                     
+>                                                                               
+===END===                                                                       
+
+>SE:CA818/01JUN24/*IADLAX  CNF/F8J42Y261                        777/300D        
+ F          J 1     [    Y 3[[ [[[[[[4[          5         6                    
+   12         1234567      123 4567890123456  78901234567890                    
+R                        L CC. ..*.*.*...*..  CV.......*.XXX   LR               
+R           L C***.V* L  K CC  .**.***..*...  C..*.......X     KR               
+RL X*    L  J .*X*.V* J  J CC* .****.*..*..X  ..**.....*.XXX   JR               
+R  ==         I======      I== E============  E=============    R               
+R  ==         I======      I== =============  ==============    R               
+RH C*    H  H C*X***X H  H CC* C*.*****..*.*  C.**.*....XXX    HR               
+LD C*    D  D CC.***X D  E CC* ...****.***.*  C.**......XXX    EL               
+L  ==         I======    D CC. .*.****.***..  C.**......XXX    DL               
+L  ==         I======      I== =============  ==============    L               
+LA X*    A  C X.X**** C    I== E============  E=============    L               
+L           A C.X**** A  C ... .*.**..*.*...  C..**.....*.XX   CL               
+L                        B ..  .*..*.**.*...  ...**.....*X     BL               
+L                        A ... C*.****......  C..**.....*XXX   AL               
+   12         1234567      123 4567890123456  78901234567890                    
+ F          J 1     [    Y 3[[ [[[[[[4[          5         6                    
+>                                                                               
+===END===                                                                       
+
+                                                                                
+===ARRIVAL_END===                                                               
+
+>AV CA818/01JUN                                                                 
+ AV:CA818/01JUN                                                                 
+DEP TIME   ARR TIME   WEEK FLY   GROUND TERM  TYPE MEAL  DISTANCE               
+IAD 1735   LAX 2005   SAT  05:30 02:00    /B  773  MMM   2295                   
+LAX 2205   PEK 0410+2 SAT  15:05        B/T3  773  MMM   6237                   
+TOTAL JOURNEY TIME  22:35                                                       
+IADLAX                                                                          
+LAXPEK FE AE OE JE CE DE ZE RE IE YE BE ME UE HE QE VE WE SE TE                 
+       LE PE XE NE KE                                                           
+MEMBER OF STAR ALLIANCE                                                         
+>
+>FT 818/01JUN                                                                   
+NO ACTION INDICATED                                                             
+>
+ SY: CA818/01JUN24 LAX/0  CC2239/NAM                                            
+CWT200000 UWT172176 CAW019473 UAW005885 WTN2 KG TCI                             
+777/300D/B2032      GTD/201  POS/GATE BN145 AK00000 CD00000                     
+BDT2115   SD2205   ED2205   CI2205   CC2239                                     
+CNF/F8J42Y261  CAP/F8J39Y244   AV/F5J0Y0  PADC/J5Y1                             
+ CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                   
+ 1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                         
+TRANSIT R000/006/138   C000/006/137  B0193/003576 UM002 WCH004                  
+                                     CHD009                                     
+        SA000/003/001                EXST00/00/00 XCR00/00/00 ZCR00/00/00       
+        RET000/008/138               CET000/006/137                             
+*LAXPEK R003/032/129   C003/033/107  B0160/003116 UM001 WCH002 I03              
+        SB000/000/000  B0000         CHD015                                     
+        SA000/008/001                EXST00/00/00 XCR00/00/00 ZCR00/00/00       
+        RET003/040/108               CET003/033/107                             
+TOTALS* R003/038/267   C003/039/244  B0353/006692 UM003 WCH006 I03              
+        SB000/000/000  B0000         CHD024                                     
+        SA000/011/002                EXST00/00/00 XCR00/00/00 ZCR00/00/00       
+        RET003/048/246               CET003/039/244                             
+GS LAX/J001Y001                                                                 
+ID LAX/J001                                                                     
+>
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,INF                                           CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+  1. 1DONG/DONG           BN081 *11D    R PEK PVERF6 IFBA FBA/2PC INF PSM       
+                                              BSCT ASR FF PSPT AQQ/FCL/USA      
+                                              ESTA/Z/USA ET API APIF CTC        
+                                              DOCS IDOCS                        
+  2. 1PATTERSON/BRYC+ JA2 BN014 *57B    V PEK NKEF3M IFBA FBA/1PC INF I PSM     
+                                              ASR SPML EDI PSPT AQQ/FCL/USA     
+                                              ESTA/A/USA ET API APIF CTC        
+                                              CKIN DOCS IDOCS                   
+  3. 1ZHONG/JUNP+     BA3 BN098 *47H    V PEK MK760D IFBA FBA/2PC INF O PSM     
+                                              BSCT ASR PSPT AQQ/FCL/USA         
+                                              ESTA/A/USA ET API APIF CTC        
+                                              CKIN DOCS IDOCS                   
+>
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,BSCT                                          CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+  1. 1DONG/DONG           BN081 *11D    R PEK PVERF6 IFBA FBA/2PC INF PSM       
+                                              BSCT ASR FF PSPT AQQ/FCL/USA      
+                                              ESTA/Z/USA ET API APIF CTC        
+                                              DOCS IDOCS                        
+  2. 1ZHONG/JUNP+     BA3 BN098 *47H    V PEK MK760D IFBA FBA/2PC INF O PSM     
+                                              BSCT ASR PSPT AQQ/FCL/USA         
+                                              ESTA/A/USA ET API APIF CTC        
+                                              CKIN DOCS IDOCS                   
+>>PL1
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,WCH                                           CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+  1. 1WU/CHAO+        AA2 BN090 *37H    V PEK NHY5VL FBA/2PC O PSM MSG WCHR     
+                                              ASR PSPT AQQ/FCL/USA              
+                                              ESTA/A/USA ET API CTC CKIN        
+                                              DOCS ASVC                         
+  2. 1WU/SUSA+        AA2 BN085 *37J    V PEK NHY5VL FBA/2PC O MSG WCHR ASR     
+                                              PSPT AQQ/FCL/USA ESTA/A/USA ET    
+                                              API CTC CKIN DOCS ASVC            
+>
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,UM                                            CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+  1. 1TAN/YUFA+           BN053 *35J    H PEK PYEPZH FBA/2PC CHD UM PSM MSG     
+                                              ASR FF PSPT AQQ/FCL/USA           
+                                              ESTA/A/USA ET API CTC CKIN        
+                                              DOCS ASVC                         
+  2. 1WANG/BELL+               XASR/35K U PEK NVX38N FBA/1PC NRS UM PSM MSG     
+                                              ADV-PU/NP ASR PSPT ET CTC CKIN    
+                                              ASVC                              
+>
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,AVIH                                          CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+NIL                                                                             
+>
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,DEP                                           CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+NIL                                                                             
+>
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,VIP                                           CC2239/NAM-
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+  1. 1GAO/YE           G3 BN119 *14J    J PEK MEGG1X FBA/2PC PSM ASR FF PSPT    
+                                              AQQ/FCL/USA ESTA/Z/USA VIP ET     
+                                              API CTC CKIN DOCS DOCA/D          
+  2. 1LIU/JIEY+        F2 BN120 *1A     F PEK NW42NL FBA/2PC PSM ASR FF PSPT    
+                                              AQQ/FCL/USA ESTA/Z/USA VIP ET     
+                                              API CTC CIP CKIN  SPCA  DOCS      
+                                              DOCA/D                            
+  3. 1WANG/MINV+       F2 BN116 *1L     F PEK NW42NL FBA/2PC PSM ASR FF PSPT    
+                                              AQQ/FCL/USA ESTA/Z/USA VIP ET     
+                                              API CTC CIP CKIN  SPCA  DOCS      
+                                              DOCA/D                            
+  4. 1XIAO/QIAN           BN118 *31D    Y PEK MEGGH8 FBA/2PC PSM ASR FF PSPT    
+                                              AQQ/FCL/USA ESTA/Z/USA VIP ET     
+                                              API CTC CKIN DOCS DOCA/D          
+  5. 1ZHANG/HUA        G3 BN117 *14L    J PEK MEGG1X FBA/2PC PSM ASR PSPT       
+                                              AQQ/FCL/USA ESTA/Z/USA VIP ET     
+                                              API CTC CKIN DOCS DOCA/D          
+  6. 1ZHAO/MEI         G3 BN121 *13J    J PEK MEGG1X FBA/2PC PSM ASR FF PSPT    
+                                              AQQ/FCL/USA ESTA/Z/USA VIP ET     
+                                              API CTC CIP CKIN  SPCA  DOCS      
+                                              DOCA/D                            
+>
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,NET,NID                                       CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+  1. 1LI/XIAO+         M3      XABP/51A B PEK MK64V2 NRS I PSM RES MSG          
+                                              ADV-PU/NP ABP CKIN                
+  2. 1WANG/DARR+       M3      XABP/51C B PEK MK64V2 NRS I PSM RES MSG          
+                                              ADV-PU/NP ABP CKIN                
+  3. 1WANG/EULA        M3      XABP/51B B PEK MK64V2 NRS I PSM RES MSG          
+                                              ADV-PU/NP ABP CKIN                
+  4. 3ZZZCREW                           N PEK NCB24H CKIN                       
+      ZZZCREW                           N PEK NCB24H                           +
+>>PL1
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,INAD                                          CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+NIL                                                                             
+>>PL1
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,DEL                                           CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+  1. 1ZHOU/LAN            DELETED       B PEK NV3ZN7 FBA/1PC O PSPT             
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS                     
+>>PL1
+                                                                                
+===END===                                                                       
+
+>BND 818/01JUN                                                                  
+ BND: CA818/01JUN24LAX                                                          
+  BOARDING NUMBER RANGE: 1--145                                                 
+  2 BOARDING NUMBER(S) DELETED:                                                 
+    12  143                                                                     
+  NONLAX:  1  5-6  8-11  13-14                                                  
+>
+>PD: CA818/01JUN24*LAX,PPOC                                          CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+NIL                                                                             
+>
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,EXST                                          CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+NIL                                                                             
+>>PL1
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,BLND                                          CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+NIL                                                                             
+>
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,DEAF                                          CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+NIL                                                                             
+>
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,WEAP                                          CC2239/NAM 
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/006/039/244 SPML:1AV 1BL 3CH 1MO 1FP 5VG                                    
+1VO,CREW:11C,17DH,46J,57-59DH,58-60JL TTL:143+3 DEL:12                          
+NIL                                                                             
+>
+                                                                                
+===END===                                                                       
+
+>PD: CA818/01JUN24*LAX,I                                             CC2239/NAM-
+777/300D GTD/201  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              PSPT AQQ/FCL/USA ESTA/Z/USA ET    
+                                              API CTC CKIN DOCS                 
+      I/UA4656/01JUN      BN7701        Q AUS                                   
+ 10. 1WANG/HAOT+          BN001 *39H    Q PEK PK1SCQ FBA/1PC I FF EDI PSPT      
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS                     
+      I/UA374/01JUN       BN29101         ORD                                   
+ 11. 1WANG/DARR+       M3      XABP/51C B PEK MK64V2 NRS I PSM RES MSG          
+                                              ADV-PU/NP ABP CKIN                
+      I/UA1743/01JUN                    T IAH                                   
+ 12. 1WANG/EULA        M3      XABP/51B B PEK MK64V2 NRS I PSM RES MSG          
+                                              ADV-PU/NP ABP CKIN                
+      I/UA1743/01JUN                    T IAH                                   
+ 13. 1XIE/JIAM+           BN010 *58B    Y PEK NG7919 FBA/2PC I PSM EDI PSPT     
+                                              AQQ/FCL/USA ESTA/Z/USA ET IET     
+                                              API CTC DOCS                      
+      I/UA2341/01JUN      BN45701       Y IAH                                   
+ 14. 1YU/QING+            BN127 *56L    V PEK NTG5RM FBA/1PC I PSM PSPT         
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS DOCA/D              
+      I/UA1960/01JUN                    G SEA                                   
+>
+                                                                                
+===END===                                                                       
+
+                                                                                
+===DEPARTURE_END===                                                             
+
+===ARRIVAL_END===
+
+
+===ARRIVAL_END===
+
+
+===DEPARTURE_END===
+
+
+===ARRIVAL_END===
+
+
+===DEPARTURE_END===
+
+
+===ARRIVAL_END===
+
+
+===DEPARTURE_END===
+
+
+===ARRIVAL_END===
+
+
+===ARRIVAL_END===
+
+
+===ARRIVAL_END===
+
+
+===DEPARTURE_END===
+
+
+===ARRIVAL_END===
+
+
+===DEPARTURE_END===
+
+
+===ARRIVAL_END===
+
+
+===DEPARTURE_END===
+
+
+===ARRIVAL_END===
+
+
+===DEPARTURE_END===
+
+
+===ARRIVAL_END===
+
+
+===DEPARTURE_END===
+
+
+===ARRIVAL_END===
+
+
+===DEPARTURE_END===
+
+
+===ARRIVAL_END===
+
+
+===ARRIVAL_END===
+

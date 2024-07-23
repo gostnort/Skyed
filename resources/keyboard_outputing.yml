@@ -1,0 +1,36 @@
+default_path: "C:\\Users\\gostn\\my_github\\skyed\\resources\\qqqqq.txt"
+arrival: "${arrival}"
+arrival_section:
+  sy:
+    command: "SY ${arrival_flight_number}/${arrival_date}/${arrival}"
+    pages_command: "PF1"
+  se:
+    command: "SE ${arrival_flight_number}/${arrival_date}/*${arrival}LAX"
+    pages_command: "PF1"
+departure_section:
+  av: 
+    command: "AV CA${departure_flight_number}/${departure_date}"
+    pages_command: null
+
+  ft: "FT ${departure_flight_number}/${departure_date}"
+  sy: "sy"
+  special_INF: "pd*,inf"
+  special_BSCT: "pd*,bsct"
+  special_WCH: "pd*,wch"
+  special_UM: "pd*,um"
+  special_AVIH: "pd*,avih"
+  special_DEP: "pd*,dep"
+  special_VIP: "pd*,vip"
+  special_No_ET: "pd*,net,nid"
+  special_INAD: "pd*,inad"
+  special_PPOC: "pd*,ppoc"
+  special_EXST: "pd*,exst"
+  special_BLND: "pd*,blnd"
+  special_DEAF: "pd*,deaf"
+  special_WEAP: "pd*,weap"
+  special_IN: "pd*,i"
+  special_DEL: "pd*,del"
+  special_DEL_Num: "BND ${departure_flight_number}/${departure_date}"
+  comment_INOP_Seat: "airc:ca/${ac_reg}"
+  comment_CWD: "cwd:${departure_flight_number}"
+  comment_Inbound_Late: "jcsy ${departure_flight_number}/${departure_date}/LAX,i"

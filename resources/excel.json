@@ -1,0 +1,22 @@
+{
+    "right_side":
+        {
+            "arrival_flight_number":"J1",
+            "arrival_leg":"K1",
+            "departure_flight_number":"M1",
+            "departure_leg":"N1",
+            "departure_flight_date":"P1",
+            "arrival_seat_configuration":"K2",
+            "departure_std":"M2",
+            "departure_etd":"N2",
+            "departure_eta":"O2",
+            "arrival_ac_reg":"K4",
+            "departure_boarding_time":"N4",
+            "arrival_pax_break_down":"K5",
+            "departure_pax_break_down":"N5",
+            "arrival_eta":"K6",
+            "departure_gate":"N6",
+            "Comment":"J8:P11",
+            "Special_count":"J12:P13"
+        }
+}
