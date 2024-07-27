@@ -1,6 +1,6 @@
 import json
 import threading
-from bins.input_simulate import SendKey, MouseClickMonitor
+from bins.historical.input_simulate import SendKey, MouseClickMonitor
 import argparse
 from bins.handle_sy import SY
 from bins.handle_se import SE

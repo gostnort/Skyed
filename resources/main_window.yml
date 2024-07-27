@@ -1,0 +1,9 @@
+window_title: "Skyed 0.3"
+main_window_width: 600
+main_window_height: 150
+main_window_min_width: 200
+main_window_min_height: 100
+QLineEdit_short_width: 120
+QLineEdit_long_width: 300
+pending_time_value: 0.5
+triggered_button_default_text: "Select the Window"
