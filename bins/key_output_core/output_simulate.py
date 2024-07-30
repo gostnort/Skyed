@@ -69,6 +69,7 @@ class SendKey(threading.Thread):
     def __resume(self):
         self.__flag.set() # unblock the thread.
 
+    # F12PendingFunc must be the ScreenCapture() class including Get1stImage() and start().
     def execute_command(self,OutputText:str,F12PendingFunc:None,bClear=True,bEsc=True,bF12=True,bPrint=True):
         key_combinations = []
         if bClear:
@@ -83,6 +84,8 @@ class SendKey(threading.Thread):
         with concurrent.futures.ThreadPoolExecutor() as executor: # Call .start() automatically..
             for key in key_combinations:
                 executor.submit(self.__type_keys, key)
+                if key == OutputText:
+                    F12PendingFunc.Get1stImage()
                 if key == Key.f12: # From now on, the main thread will running the rest, excpet `future`.
                     start_time = time.time()
                     end_time = start_time

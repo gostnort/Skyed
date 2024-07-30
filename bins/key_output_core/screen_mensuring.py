@@ -28,13 +28,17 @@ class ScreenCapture(threading.Thread):
         return err # return the MSE, the lower the error, the more "similar"
     
     def run(self):
+        if self.__basic_img == None:
+            print("The basic image not exist.")
+            self.__flag.clear()
+            return
         while self.__flag.is_set():
             img2 = self.__capture()
-            print(f'{threading.current_thread().name} get 2nd img.')
+            print(f'{threading.current_thread().name} is capturing the 2nd img.')
             mse_diff = self.mse(self.__basic_img,img2)
             self.mismatch = mse_diff
             if mse_diff>=self.__threshold:
-                print('clear')
+                print(f'pic diff is {mse_diff}. Thread Event is cleared.')
                 self.__flag.clear()
             time.sleep(0.1)
 ########################################################################################
