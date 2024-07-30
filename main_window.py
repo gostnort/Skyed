@@ -34,14 +34,20 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(self.wnd_config['main_window_min_width'], self.wnd_config['main_window_min_height'])  # Set minimum window size
         app_icon = QIcon(os.path.join(self.resource_path,'pd_star.ico'))
         self.setWindowIcon(app_icon)
+        self.info_box = QLineEdit()
+        self.info_box.setText('CA769/CA770/30JUL/30JUL/SZX')
+        self.info_box.setStyleSheet("border: none;")
         self.triggered_button = QPushButton(self.wnd_config['triggered_button_default_text'])
         self.triggered_button.setCheckable(True)
         self.triggered_button.clicked.connect(self.on_button_triggered)
         # Add Layout.
         main_layout=QVBoxLayout()
         first_row_layout = QHBoxLayout()
-        first_row_layout.addWidget(self.triggered_button)
+        first_row_layout.addWidget(self.info_box)
+        second_row_layout = QHBoxLayout()
+        second_row_layout.addWidget(self.triggered_button)
         main_layout.addLayout(first_row_layout)
+        main_layout.addLayout(second_row_layout)
         # Create a central widget to hold the main layout
         self.central_widget = QWidget()
         self.central_widget.setLayout(main_layout)
@@ -54,7 +60,9 @@ class MainWindow(QMainWindow):
     def on_button_triggered(self):
         if self.triggered_button.isChecked():
             self.triggered_button.setText('Running')
-            success,details = triggered_button(self.resource_path)
+            info_list = self.info_box.text().split('/')
+            print(info_list)
+            success,details = triggered_button(self.resource_path,info_list)
             if not success:
                 err_msg = f"Failed.\n {details}"
                 print(err_msg)

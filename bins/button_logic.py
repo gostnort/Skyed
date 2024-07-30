@@ -6,20 +6,17 @@ def  triggered_button(ResourcesPath:str,YamlArg:list):
     try:
         with open(os.path.join(ResourcesPath,'keyboard_outputing.yml'),'r') as file:
             setting_file = file.read()
+        setting_file = setting_file.replace('${arrival_flight_number}', YamlArg[0])
+        setting_file = setting_file.replace('${departure_flight_number}', YamlArg[1])
+        setting_file = setting_file.replace('${arrival_date}',YamlArg[2])
+        setting_file = setting_file.replace('${departrue_date}', YamlArg[3])
+        setting_file = setting_file.replace('${arrival}',YamlArg[4])
         commands_config = yaml.safe_load(setting_file)
     except FileNotFoundError as e:
         print(f'The keyboard output commands configuration files NOT found. {e}')
         return False, e
-    try:
-        commands_config = commands_config.replace('${arrival_flight_number}', YamlArg[0])
-        commands_config = commands_config.replace('${departure_flight_number}', YamlArg[1])
-        commands_config = commands_config.replace('${arrival_date}',YamlArg[2])
-        commands_config = commands_config.replace('${departrue_date}', YamlArg[3])
-        commands_config = commands_config.replace('${arrival}',YamlArg[4])
-    except:
-        pass
     screen=screen_mensuring.ScreenCapture(6)
-    mouse=output_simulate.MouseClickMonitor(2)
+    mouse=output_simulate.MouseClickMonitor(1)
     send_key=output_simulate.SendKey()
     mouse.start()
     for_loop_count = len(commands_config['arrival_section'])
