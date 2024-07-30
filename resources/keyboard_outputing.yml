@@ -1,10 +1,10 @@
 default_path: "C:\\Users\\gostn\\my_github\\skyed\\resources\\qqqqq.txt"
 arrival: "${arrival}"
 arrival_section:
-  sy:
+  - sy:
     command: "SY ${arrival_flight_number}/${arrival_date}/${arrival}"
     pages_command: "PF1"
-  se:
+  - se:
     command: "SE ${arrival_flight_number}/${arrival_date}/*${arrival}LAX"
     pages_command: "PF1"
 departure_section:

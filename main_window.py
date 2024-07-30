@@ -7,6 +7,8 @@ from PySide6.QtCore import Qt
 import os
 import yaml
 import sys
+from bins.button_logic import triggered_button
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -24,7 +26,7 @@ class MainWindow(QMainWindow):
                 setting_file= file.read()
             self.wnd_config=yaml.safe_load(setting_file)
         except FileNotFoundError as e:
-            QMessageBox(f"The main window setting file is missing. {e}")
+            QMessageBox.information(None,'Error',f"The main window setting file is missing. {e}")
             return
         # Initialize the controls.
         self.setWindowTitle(self.wnd_config['window_title'])
@@ -41,9 +43,9 @@ class MainWindow(QMainWindow):
         first_row_layout.addWidget(self.triggered_button)
         main_layout.addLayout(first_row_layout)
         # Create a central widget to hold the main layout
-        central_widget = QWidget()
-        central_widget.setLayout(main_layout)
-        self.setCentralWidget(central_widget)
+        self.central_widget = QWidget()
+        self.central_widget.setLayout(main_layout)
+        self.setCentralWidget(self.central_widget)
         self.setStyleSheet('''
                             QMainWindow {
                             background-color: #CCCCCC;
@@ -52,6 +54,13 @@ class MainWindow(QMainWindow):
     def on_button_triggered(self):
         if self.triggered_button.isChecked():
             self.triggered_button.setText('Running')
+            success,details = triggered_button(self.resource_path)
+            if not success:
+                err_msg = f"Failed.\n {details}"
+                print(err_msg)
+                QMessageBox.information(self.central_widget,'Error',err_msg)
+            self.triggered_button.setChecked(False)
+            self.triggered_button.setText(self.wnd_config['triggered_button_default_text'])
         else:
             self.triggered_button.setText(self.wnd_config['triggered_button_default_text'])
         
