@@ -3,6 +3,8 @@ from pynput.mouse import Listener as mouse_listener
 import time
 import threading
 import concurrent.futures
+import yaml
+from bins.key_output_core.file_monitor import FileMonitor  # Import the FileMonitor class
 
 class MouseClickMonitor(threading.Thread):
     def __init__(self, ExitClickCount=1):
@@ -29,8 +31,6 @@ class MouseClickMonitor(threading.Thread):
         if self.__listener:
             self.__listener.stop()
             print(f'Thread {threading.current_thread().name} stopped.')
-######################################################################################
-
 
 class SendKey(threading.Thread):
     def __init__(self,F12Pending=2,OperatePending=0.1):
@@ -84,8 +84,7 @@ class SendKey(threading.Thread):
         with concurrent.futures.ThreadPoolExecutor() as executor: # Call .start() automatically..
             for key in key_combinations:
                 executor.submit(self.__type_keys, key)
-                if key == OutputText:
-                    F12PendingFunc.Get1stImage()
+
                 if key == Key.f12: # From now on, the main thread will running the rest, excpet `future`.
                     start_time = time.time()
                     end_time = start_time
@@ -112,12 +111,16 @@ def sample_call():
     list_index = 0
     mouse=MouseClickMonitor(4)
     mouse.start()
+    file_path = get_file_path_from_config()
+    monitor = FileMonitor(file_path)
+    monitor.start()
     while mouse.is_alive(): # the main thread is not waiting without this while loop.
         if mouse.count > 0:
             if list_index != len(list_str):
-                total_time=timeit.timeit(lambda: send_key.execute_command(list_str[list_index],random_sleep,bPrint=False),
+                total_time=timeit.timeit(lambda: send_key.execute_command(list_str[list_index], monitor, bPrint=False),
                                          number=1)
                 print(f"Index {list_index} consumes time {total_time:.4f} second.")
+                print(monitor.get_latest_result(timeout=5))  # Print the result from the monitoring module
                 list_index = list_index + 1
             else:
                 mouse.stop()
@@ -125,15 +128,12 @@ def sample_call():
             mouse.stop()
             break
         time.sleep(0.3)# avoid this While consume too much CPU.
+    monitor.stop()
 
-def random_sleep()->bool: # Testing outside interrupted.
-    import random
-    print(f"{threading.current_thread().name} starts sleeping.")
-    ram_number = random.uniform(1,3)
-    print(f'sleep {ram_number:.4f} second.')
-    time.sleep(ram_number)
-    print(f"{threading.current_thread().name} ends sleeping.")
-    return True
+def get_file_path_from_config():
+    with open('resources/keyboard_outputing.yml', 'r') as file:
+        config = yaml.safe_load(file)
+    return config['default_path']
 
 if __name__=="__main__":
     sample_call()

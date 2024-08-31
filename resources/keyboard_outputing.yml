@@ -1,4 +1,4 @@
-default_path: "C:\\Users\\gostn\\my_github\\skyed\\resources\\qqqqq.txt"
+default_path: "C:\\Users\\gostn\\my_github\\skyed\\resources\\test.log"
 arrival: "${arrival}"
 arrival_section:
   - sy:
@@ -17,54 +17,15 @@ departure_section:
   sy: 
     command: "sy"
     pages_command: "PF1"
-  special_INF: 
-    command: "pd*,inf"
-    pages_command: "PL"
-  special_BSCT: 
-    command: "pd*,bsct"
-    pages_command: "PL"
-  special_WCH: 
-    command: "pd*,wch"
-    pages_command: "PL"
-  special_UM: 
-    command: "pd*,um"
-    pages_command: "PL"
-  special_AVIH: 
-    command: "pd*,avih"
-    pages_command: "PL"
-  special_DEP: 
-    command: "pd*,dep"
-    pages_command: "PL"
-  special_VIP: 
-    command: "pd*,vip"
-    pages_command: "PL"
-  special_No_ET: 
-    command: "pd*,net,nid"
-    pages_command: "PL"
-  special_INAD: 
-    command: "pd*,inad"
-    pages_command: "PL"
-  special_PPOC: 
-    command: "pd*,ppoc"
-    pages_command: "PL"
-  special_EXST: 
-    command: "pd*,exst"
-    pages_command: "PL"
-  special_BLND: 
-    command: "pd*,blnd"
-    pages_command: "PL"
-  special_DEAF: 
-    command: "pd*,deaf"
-    pages_command: "PL"
-  special_WEAP: 
-    command: "pd*,weap"
-    pages_command: "PL"
-  special_IN: 
-    command: "pd*,i"
+  pd_inbound:
+    command: "PD*,I,ETWN"
     pages_command: "PN1"
-  special_DEL: 
-    command: "pd*,del"
-    pages_command: "PL"
+  pd_outbound:
+    command: "PD*,O,ETWN"
+    pages_command: "PN1"
+  pd_domestic:
+    command: "PD*,NI,NO,ETWN"
+    pages_command: "PN1"
   special_DEL_Num: 
     command: "BND ${departure_flight_number}/${departure_date}"
     pages_command: null
