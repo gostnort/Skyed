@@ -4,6 +4,12 @@ import time
 import threading
 import concurrent.futures
 import yaml
+import sys
+import os
+
+# Add the bins directory to the Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+
 from bins.key_output_core.file_monitor import FileMonitor  # Import the FileMonitor class
 
 class MouseClickMonitor(threading.Thread):
@@ -33,7 +39,7 @@ class MouseClickMonitor(threading.Thread):
             print(f'Thread {threading.current_thread().name} stopped.')
 
 class SendKey(threading.Thread):
-    def __init__(self,F12Pending=2,OperatePending=0.1):
+    def __init__(self,F12Pending=5,OperatePending=0.1):
         super().__init__()
         self.__keyboard = Controller()
         self.__op_delay = OperatePending
@@ -84,8 +90,8 @@ class SendKey(threading.Thread):
         with concurrent.futures.ThreadPoolExecutor() as executor: # Call .start() automatically..
             for key in key_combinations:
                 executor.submit(self.__type_keys, key)
-
                 if key == Key.f12: # From now on, the main thread will running the rest, excpet `future`.
+                    print('F12 is pressed.')
                     start_time = time.time()
                     end_time = start_time
                     future = executor.submit(F12PendingFunc) # A new thread for another function to mensure the time.
@@ -109,26 +115,30 @@ def sample_call():
     send_key=SendKey()
     list_str=['sy ca983/26jul/pek','pf1']
     list_index = 0
-    mouse=MouseClickMonitor(4)
+    mouse=MouseClickMonitor(3)
     mouse.start()
     file_path = get_file_path_from_config()
+    print(f"Monitoring file: {file_path}")
     monitor = FileMonitor(file_path)
     monitor.start()
     while mouse.is_alive(): # the main thread is not waiting without this while loop.
         if mouse.count > 0:
             if list_index != len(list_str):
-                total_time=timeit.timeit(lambda: send_key.execute_command(list_str[list_index], monitor, bPrint=False),
+                total_time=timeit.timeit(lambda: send_key.execute_command(list_str[list_index], monitor.get_latest_result, bPrint=False),
                                          number=1)
                 print(f"Index {list_index} consumes time {total_time:.4f} second.")
-                print(monitor.get_latest_result(timeout=5))  # Print the result from the monitoring module
+                result = monitor.get_latest_result(timeout=5)  # Get the result from the monitoring module
+                if result:
+                    print(f"Latest result: {result}")
+                else:
+                    print("No new content detected")
                 list_index = list_index + 1
-            else:
-                mouse.stop()
         if mouse.count == 3:
+            print("Stopping monitor...")
+            monitor.stop()
             mouse.stop()
             break
         time.sleep(0.3)# avoid this While consume too much CPU.
-    monitor.stop()
 
 def get_file_path_from_config():
     with open('resources/keyboard_outputing.yml', 'r') as file:
