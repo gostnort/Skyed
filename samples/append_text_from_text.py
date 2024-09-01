@@ -1,3 +1,6 @@
+## Run this script in another terminal.
+## The sample_call() of the output_simulate.py should output commands to this terminal.
+## You must press Enter to what this script received in time that depends on the sample_call() waiting time.
 
 from datetime import datetime
 import os
@@ -33,3 +36,4 @@ if __name__ == "__main__":
             print("Command processed. Enter another command or press Ctrl+C to exit.")
     except KeyboardInterrupt:
         print("\nProgram terminated by user.")
+

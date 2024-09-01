@@ -109,36 +109,41 @@ class SendKey(threading.Thread):
 ######################################################################
 
 
-
+# Due to this function is working with the append_text_from_text.py,
+# the list_str must be from the command_sample.txt.
 def sample_call():
     import timeit
-    send_key=SendKey()
-    list_str=['sy ca983/26jul/pek','pf1']
+    send_key = SendKey()
+    list_str = ['SY: CA818/01JUN24', 'PD: CA818/01JUN24*LAX,WCH']
     list_index = 0
-    mouse=MouseClickMonitor(3)
+    mouse = MouseClickMonitor(3)
     mouse.start()
     file_path = get_file_path_from_config()
     print(f"Monitoring file: {file_path}")
     monitor = FileMonitor(file_path)
     monitor.start()
-    while mouse.is_alive(): # the main thread is not waiting without this while loop.
-        if mouse.count > 0:
-            if list_index != len(list_str):
-                total_time=timeit.timeit(lambda: send_key.execute_command(list_str[list_index], monitor.get_latest_result, bPrint=False),
-                                         number=1)
-                print(f"Index {list_index} consumes time {total_time:.4f} second.")
-                result = monitor.get_latest_result(timeout=5)  # Get the result from the monitoring module
-                if result:
-                    print(f"Latest result: {result}")
-                else:
-                    print("No new content detected")
-                list_index = list_index + 1
-        if mouse.count == 3:
-            print("Stopping monitor...")
-            monitor.stop()
-            mouse.stop()
-            break
-        time.sleep(0.3)# avoid this While consume too much CPU.
+    try:
+        while mouse.is_alive():  # the main thread is not waiting without this while loop.
+            if mouse.count > 0:
+                if list_index != len(list_str):
+                    total_time = timeit.timeit(lambda: send_key.execute_command(list_str[list_index], monitor.get_latest_result, bPrint=False),
+                                               number=1)
+                    print(f"Index {list_index} consumes time {total_time:.4f} second.")
+                    result = monitor.get_latest_result(timeout=5)  # Get the result from the monitoring module
+                    if result:
+                        print(f"Latest result: {result}")
+                    else:
+                        print("No new content detected")
+                    list_index = list_index + 1
+            if mouse.count == 3:
+                print("Stopping monitor...")
+                monitor.stop()
+                mouse.stop()
+                break
+            time.sleep(0.3)  # avoid this While consume too much CPU.
+    finally:
+        monitor.join()
+        mouse.join()
 
 def get_file_path_from_config():
     with open('resources/keyboard_outputing.yml', 'r') as file:
