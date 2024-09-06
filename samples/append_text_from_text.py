@@ -8,7 +8,7 @@ import re
 
 def append_text_to_log(input_command):
     parent_folder = os.path.dirname(os.getcwd())
-    with open(os.path.join(parent_folder, 'resources', 'command_sample.txt'), 'r') as sample_file:
+    with open(os.path.join(parent_folder, 'resources', 'samples','command_sample.txt'), 'r') as sample_file:
         sample_content = sample_file.read()
         # Find the input_command first
         command_index = sample_content.find(input_command)

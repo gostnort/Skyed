@@ -1,4 +1,7 @@
 import re
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 from bins.txt_operation import String2List
 
 class PD():
@@ -12,7 +15,9 @@ class PD():
         self.__pd_dict={}
         self.__pax_dict_in_list=[]
         self.ErrorMessage=[]
+        self.AsvcKeys = []  # The list stores keys that has a property of 'ASVC' from __pd_dict.
         self.__separate_pd_items()
+        self.Properties = self.collect_properties()
         self.__fill_out_pax_dict()
         self.__verified_all_sn()
         return
@@ -153,14 +158,47 @@ class PD():
             self.ErrorMessage.append(missing_sn)
         return
 
+    def collect_properties(self):
+        property_counts = {}
+        for key, lines in self.__pd_dict.items():
+            item_properties = set()  # Use a set to avoid counting duplicates within an item
+            for i, line in enumerate(lines):
+                if len(line) > 45:
+                    if i == 0:  # First line of the item
+                        properties = line[52:].split()  # Start from 52nd character (45 + 7)
+                    else:
+                        properties = line[45:].split()
+                    item_properties.update(properties)
+            
+            for prop in item_properties:
+                if prop in property_counts:
+                    property_counts[prop] += 1
+                else:
+                    property_counts[prop] = 1
+                
+                # Record the key if 'ASVC' is found
+                if prop == 'ASVC' and key not in self.AsvcKeys:
+                    self.AsvcKeys.append(key)
+        
+        return property_counts
 
 def main():
-    from txt_operation import ReadTxt2List
-    pdcontent=ReadTxt2List(r'C:\Users\gostn\OneDrive\桌面\eterm\pd_sample.txt')
-    pd=PD(pdcontent)
-    print(pd.GetSameNames())
-    print(pd.GetSameSeats())
-    print(pd.GetLastCount(pdcontent))
-    print(pd.ErrorMessage)
+    import sys
+    import os
+    from bins.txt_operation import ReadTxt2List
+    # Get the absolute path of the current script
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # Add the parent directory of 'bins' to the Python path
+    project_root = os.path.dirname(os.path.dirname(current_dir))
+    pd_sample_path = os.path.join(project_root, 'resources', 'samples', 'pd_all.txt')
+    print(pd_sample_path)
+    pdcontent = ReadTxt2List(pd_sample_path)
+    pd = PD(pdcontent)
+    print(pd.Properties)
+    print(pd.AsvcKeys)
+    #print(pd.GetSameNames())
+    #print(pd.GetSameSeats())
+    #print(pd.GetLastCount(pdcontent))
+    #print(pd.ErrorMessage)
 if __name__ == "__main__":
     main()

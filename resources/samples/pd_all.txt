@@ -1,0 +1,549 @@
+>PD: CA818/27APR24*LAX                                                   OP/NAM 
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+CAT/005/039/246, Y:3CH,2SF,4VG, CREW:12D,17DH,46J,57-59DH,58-60JL               
+  1. 1ADAMS/RUIW+         BN013  54H    V PEK MW8N24 FBA/2PC O PSM ASR PSPT     
+                                              AQQ/FCL/USA ESTA/A/USA ET API     
+                                              CTC FOID WEB CKIN DOCS ITPX       
+  2. 1BAI/YUNX+           BN003  40H    B PEK MBQJ6X FBA/1PC I PSM EDI PSPT     
+                                              AQQ/FCL/USA ESTA/Z/USA ET CTC     
+                                              CKIN DOCS                         
+  3. 1BAO/JING+           BN042  44E    S PEK PW7JX3 FBA/1PC PSPT               
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC DOCS ITPX                     
+  4. 1BEYER/BRYA+         BN057  46E    S PEK MFN3XB FBA/2PC O PSM FF PSPT      
+                                              AQQ/FCL/USA ESTA/A/USA ET API     
+                                              CTC FOID CKIN DOCS DOCA/R         
+  5. 1CAO/BEIN+        Q4 BN021  40A    W PEK NDWW99 FBA/1PC I ASR EDI PSPT     
+                                              AQQ/FCL/USA ESTA/A/USA ET CTC     
+                                              CKIN DOCS                         
+  6. 1CHANG/JIUN+                33C    V PEK NEKW9D FBA/1PC PSM RES ASR        
+                                              PSPT ET CTC ASVC                  
+  7. 1CHANG/DONG+                       S PEK PTQ1QS FBA/1PC PSPT ET CTC        
+                                              CKIN                              
+  8. 1CHANG/FENG+      X2               S PEK PTZHHW FBA/2PC O PSM PSPT ET     +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              CTC FOID CKIN                     
+  9. 1CHEN/HONG+       I2 BN056  33D    Q PEK MFFJS9 FBA/1PC ASR PSPT           
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS DOCA/R DOCA/D       
+                                              ASVC                              
+ 10. 1CHEN/QI             BN062  46D    Q PEK PY5J3W FBA/2PC ASR FF PSPT        
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS ITPX ASVC       
+ 11. 1CHEN/JIAW+          BN063  44J    S PEK MGFKTY FBA/2PC O ASR PSPT         
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS ASVC                
+ 12. 1CHEN/QI                           S PEK MJ8WBD FBA/1PC FF PSPT ET CTC     
+                                              CKIN                              
+ 13. 1CHEN/YITI+                        S PEK MEVWBM FBA/1PC PSM PSPT ET        
+                                              CTC FOID CKIN                     
+ 14. 1CHEN/YOUL+      EA2        34B    T PEK PVRETT FBA/2PC O RES MSG          
+                                              ADV-PU/NP ASR PSPT ET CTC CKIN    
+                                              ASVC                              
+ 15. 1CHEN/SHIH+                        L PEK PD6EVY FBA/2PC O PSM MSG          
+                                              ADV-PU/NP PSPT ET CTC CKIN        
+ 16. 1CHEN/LI                           B PEK NJYSTM O PSM MSG ADV-PU/NP FF    +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              CTC                               
+ 17. 1CHENG/XUAN+      F2        12J    R PEK MDR3LY FBA/2PC O RES ASR PSPT     
+                                              ET CTC CKIN                       
+ 18. 1CHRISTIAN/PATR+     BN060  42L    S PEK PWQSEY FBA/2PC O PSM ASR FF       
+                                              PSPT AQQ/FCL/USA ESTA/A/USA ET    
+                                              API CTC FOID CKIN DOCS ASVC       
+ 19. 1CUI/HONG+                         Q PEK NBX3B3 FBA/2PC PSM FF PSPT ET     
+                                              CTC CKIN                          
+ 20. 1DAI/LEXU+           BN050  41C    W PEK MZ4VDE FBA/2PC ASR FF PSPT        
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN  SPCA  DOCS ASVC         
+ 21. 1DING/BING+          BN033  40E    B PEK NB283Q FBA/1PC I FF EDI PSPT      
+                                              AQQ/FCL/USA ESTA/Z/USA ET CTC     
+                                              CIP CKIN  SPCA  DOCS              
+ 22. 1FAN/XIAO+           BN031  35J    Q PEK PWWVJ6 FBA/1PC PSM ASR FF PSPT    
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN  SPCA  DOCS ITPX     
+                                              ASVC                              
+ 23. 1FANG/WEIJ+       Y2 BN037  49J    S PEK NJ7R03 FBA/1PC ASR FF PSPT        
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS ITPX           +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+ 24. 1FENG/FAN                   14J    R PEK NXS42D FBA/2PC RES ASR FF PSPT    
+                                              ET CTC CKIN                       
+ 25. 1FENG/RUXI+                 56H    V PEK PXSJQ4 FBA/2PC O RES MSG          
+                                              ADV-PU/NP ASR FF PSPT ET CTC      
+                                              CKIN                              
+ 26. 1GAO/XINX+       AA2 BN049  48H    S PEK MTHT50 FBA/2PC O PSM ASR PSPT     
+                                              AQQ/FCL/USA ESTA/A/USA ET API     
+                                              CTC FOID CKIN DOCS                
+ 27. 1GAO/ZIQI+        S2               S PEK PT45WB FBA/2PC O PSPT ET CTC      
+                                              CKIN                              
+ 28. 1GE/XIAO         BA2        47H    S PEK MYFSEE IFBA FBA/1PC INF PSM       
+                                              BSCT ADV-PA/NP ASR SPML FF        
+                                              PSPT ET CTC                       
+ 29. 1GONG/BOHA+                        Q PEK MWS121 FBA/1PC PSM ET CTC         
+ 30. 1GU/CHEN+                   34H    Q PEK MW09TH FBA/2PC RES ASR FF PSPT    
+                                              ET CTC CKIN ASVC                  
+ 31. 1GUAN/XIUS+      KA3               L PEK MCJ5HF FBA/2PC O PSM PSPT         
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS DOCA/D              
+ 32. 1GUO/YUJI+                         Q PEK PDHR33 FBA/2PC O MSG ADV-PU/NP    
+                                              PSPT ET CTC CKIN                 +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+ 33. 1GUO/MING        CA4        56B    S PEK PYLCBF FBA/1PC CHD PSM RES ASR    
+                                              SPML PSPT ET CTC FOID CKIN        
+ 34. 1GUO/TIAN+       CA4        56D    S PEK PYLCBF FBA/1PC PSM RES ASR FF     
+                                              PSPT ET CTC FOID CKIN             
+ 35. 1GUO/YING        CA4        56C    S PEK PYLCBF FBA/1PC CHD PSM RES ASR    
+                                              SPML PSPT ET CTC FOID CKIN        
+ 36. 1HAN/MEIS+           BN017  36J    S PEK MYLRPL FBA/1PC ASR FF PSPT        
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS ITPX ASVC       
+ 37. 1HAN/BAOY+        P2        36E    W PEK PVG62M FBA/1PC RES WCHR ASR       
+                                              PSPT ET CTC ASVC                  
+ 38. 1HAO/JIJU+                         S PEK MDCCLG FBA/2PC O PSM ET CTC       
+                                              CKIN                              
+ 39. 1HE/LIWE+            BN047  34L    Q PEK NK2ED9 FBA/2PC O PSM ASR FF       
+                                              PSPT AQQ/FCL/USA ESTA/Z/USA ET    
+                                              API CTC CIP CKIN  SPCA  DOCS      
+                                              DOCA/D                            
+ 40. 1HE/KAIX+        KA3 BN059  35L    L PEK MCJ5HF FBA/2PC O PSM PSPT         
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS DOCA/D              
+ 41. 1HU/ZHEN                    45D    H PEK NXBNE7 FBA/2PC O PSM RES ASR     +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              ET CTC CKIN ASVC                  
+ 42. 1HU/HAIL+                          V PEK PJZ6XV FBA/1PC PSPT ET CTC        
+                                              CKIN                              
+ 43. 1HU/HUIY+                          Q PEK PHGGCH FBA/1PC PSM ET CTC         
+ 44. 1HUANG/HUIM+      T2        38H    S PEK PHZQ3K FBA/1PC PSM WCHR           
+                                              ADV-PA/NP ASR ET CTC CKIN         
+ 45. 1HUANG/SUQI+                41J    S PEK PDM007 FBA/2PC O RES ASR PSPT     
+                                              ET CTC CKIN ASVC                  
+ 46. 1HUANG/YAN       AA2 BN044  48E    S PEK MTHT50 FBA/2PC O PSM ASR PSPT     
+                                              AQQ/FCL/USA ESTA/A/USA ET API     
+                                              CTC FOID CKIN DOCS                
+ 47. 1HUI/CHAN+                  12H    R PEK MB3J3T FBA/2PC O RES WCHR ASR     
+                                              PSPT ET CTC CKIN                  
+ 48. 1JIA/DECH+        W2               S PEK MG37XR FBA/2PC O PSM ET CTC       
+                                              CKIN                              
+ 49. 1JIA/MEI         CA4        56A    S PEK PYLCBF FBA/1PC PSM RES ASR FF     
+                                              PSPT ET CTC FOID CKIN             
+ 50. 1JIA/SHUL+        G2        13C    R PEK NBCYJ4 FBA/2PC PSM WCHR           
+                                              ADV-PA/NP ASR ET CTC              
+ 51. 1JIANG/MING                        W PEK NXPWG6 FBA/2PC O PSPT ET CTC      
+ 52. 1JIANG/YIHA+         BN061  44H    S PEK NLZKK7 FBA/2PC O ASR FF PSPT     +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS ASVC                
+ 53. 1JIANG/YONG+                41L    S PEK MKK8K0 FBA/2PC O RES ASR FF       
+                                              PSPT ET CTC CKIN ASVC             
+ 54. 1JIANG/YING+         BN014  57J    L PEK PH8EJ0 FBA/2PC O PSM MSG ASR      
+                                              SPML FF PSPT AQQ/FCL/USA          
+                                              ESTA/A/USA ET API CTC WEB CKIN    
+                                              DOCS ITPX                         
+ 55. 1JIN/RONA+                  41D    S PEK MGHC19 FBA/2PC O PSM RES ASR      
+                                              PSPT ET CTC FOID CKIN ASVC        
+ 56. 1JING/CHEN        I2 BN055  36H    Q PEK MFFJS9 FBA/1PC ASR FF PSPT        
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS DOCA/R DOCA/D       
+                                              ASVC                              
+ 57. 1JING/LINL+          BN002  36A    Y PEK MX7276 FBA/1PC I EDI PCTC PSPT    
+                                              AQQ/FCL/USA ESTA/Z/USA ET IET     
+                                              DOCS DOCA/D                       
+ 58. 1KANKHAREI/PAVE+ JA2               L PEK PEH96B FBA/2PC O PSM FF PSPT      
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS ITPX                
+ 59. 1KOU/YUAN+        U2        52H    S PEK PE1P7B FBA/1PC RES ASR PSPT ET   +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              CTC                               
+ 60. 1LI/HUI                            U PEK MB551E FBA/1PC PSPT ET CTC        
+                                              CKIN                              
+ 61. 1LI/JUN           K3 BN010  39B    Q PEK MJG9FJ FBA/2PC O PSPT             
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS ITPX            
+ 62. 1LI/YI            N3        37H    W PEK NHZMR3 FBA/1PC WCHR ADV-PA/NP     
+                                              ASR PSPT ET CTC                   
+ 63. 1LI/YUEY+                          W PEK MW29W1 FBA/1PC I O PSM FF PSPT    
+                                              ET CTC CKIN                       
+ 64. 1LI/JUNF+                   34D    S PEK MFYQPK FBA/2PC RES ASR FF PSPT    
+                                              ET CTC ASVC                       
+ 65. 1LI/LANL+         V2        50J    S PEK MW73GK FBA/2PC O PSM RES ASR      
+                                              ET CTC CKIN                       
+ 66. 1LI/LEON+                   49A    S PEK MZPDKW FBA/2PC O PSM RES ASR      
+                                              PSPT ET CTC FOID CKIN             
+ 67. 1LI/YUE                     51D    S PEK MJML82 FBA/2PC O RES ASR FF       
+                                              PSPT ET CTC CKIN                  
+ 68. 1LI/ZHIL+         Z2        56J    S PEK PBDTPC FBA/1PC PSM RES ASR ET     
+                                              CTC                               
+ 69. 1LI/MEIF+        EA2        34C    T PEK PVRETT FBA/2PC O RES MSG         +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              ADV-PU/NP ASR PSPT ET CTC CKIN    
+                                              ASVC                              
+ 70. 1LI/BING                           L PEK MCX8RL FBA/2PC O PSM FF PSPT      
+                                              ET CTC FOID CKIN                  
+ 71. 1LI/JIYA+        IA2 BN027  49E    L PEK NHB8K2 FBA/1PC I O PSM MSG EDI    
+                                              PSPT AQQ/FCL/USA ESTA/Z/USA ET    
+                                              CTC CKIN DOCS DOCA/D              
+ 72. 1LIN/EDDY         Q4 BN022  40B    W PEK NDWW99 FBA/1PC CHD I ASR EDI      
+                                              PSPT AQQ/FCL/USA ESTA/A/USA ET    
+                                              CTC CKIN DOCS                     
+ 73. 1LIN/LANA         Q4 BN024  40C    W PEK NDWW99 FBA/1PC CHD I ASR EDI      
+                                              PSPT AQQ/FCL/USA ESTA/A/USA ET    
+                                              CTC CKIN DOCS                     
+ 74. 1LIN/HAI          Q4 BN023  40D    W PEK NDWW99 FBA/1PC I ASR EDI PSPT     
+                                              AQQ/FCL/USA ESTA/A/USA ET CTC     
+                                              CKIN DOCS                         
+ 75. 1LIU/DAOG+        L2        47K    Q PEK NBN18M FBA/1PC RES MSG            
+                                              ADV-PU/NP ASR FF PSPT ET CTC      
+                                              CIP CKIN  SPCA  ASVC              
+ 76. 1LIU/FUQI+        K3 BN011  38C    Q PEK MJG9FJ FBA/2PC O PSPT             
+                                              AQQ/FCL/USA ESTA/Z/USA ET API    +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              CTC WEB CKIN DOCS ITPX            
+ 77. 1LIU/RUIL+                  37D    Q PEK NYB12R FBA/1PC RES ASR PSPT ET    
+                                              CTC CKIN ASVC                     
+ 78. 1LIU/YUEM+        K3 BN009  38A    Q PEK MJG9FJ FBA/2PC O ASR PSPT         
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS ITPX            
+ 79. 1LIU/CHEN+                         S PEK NWCFRE FBA/1PC PSPT ET CTC        
+ 80. 1LIU/ZHON+        Z2        56K    S PEK PBDTPC FBA/1PC PSM RES ASR ET     
+                                              CTC                               
+ 81. 1LIU/XINY+       JA2               L PEK PEH96B FBA/2PC O PSM FF PSPT      
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS ITPX                
+ 82. 1LIU/JINY+       SA2 BN048  44B    Q PEK MHE7Z2 FBA/2PC O MSG PSPT         
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS                     
+ 83. 1LU/JING+                          V PEK NJFXW0 FBA/1PC PSPT ET CTC        
+ 84. 1LU/WENL+                   31A    W PEK MVKS6Z FBA/2PC O ADV-PA/NP ASR    
+                                              PSPT ET CTC CKIN                  
+ 85. 1LU/XIAO+        DA2        51K    S PEK NXNVBT FBA/2PC O PSM RES ASR      
+                                              PSPT ET CTC CKIN                  
+ 86. 1LU/YING                           S PEK NKT8M7 FBA/2PC O PSPT ET CTC     +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              CKIN                              
+ 87. 1LY/HATH+                   37J    Q PEK ND66H3 FBA/2PC O MSG WCHR         
+                                              ADV-PU/NP ASR PSPT ET CTC CKIN    
+ 88. 1MA/XINN+                   50D    V PEK PJV86J FBA/2PC PSM RES ASR        
+                                              PSPT ET CTC CKIN                  
+ 89. 1MO/JING+            BN007  37A    Q PEK NGK1WD FBA/1PC PSM FF PSPT        
+                                              AQQ/FCL/USA ESTA/A/USA ET API     
+                                              CTC FOID WEB CKIN DOCS ITPX       
+ 90. 1MO/JING+                          Q PEK PGZHLK FBA/1PC PSM ET CTC         
+ 91. 1MOHAMMED/BARE+             54A    Q PEK PKL6T9 FBA/2PC O PSM RES ASR      
+                                              ET CTC CKIN                       
+ 92. 1MU/RUI                            W PEK PHVRMM FBA/1PC PSPT ET CTC        
+ 93. 1NIU/GAIF+                  37C    B PEK NLRHFT FBA/2PC I O PSM MSG        
+                                              WCHR ADV-PU/NP ASR ET CTC CKIN    
+ 94. 1PAN/JIA         KA3 BN051  36L    L PEK MCJ5HF FBA/2PC O PSM PSPT         
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS DOCA/D              
+ 95. 1PANG/HAIO+                 35A    Q PEK PCY8DH FBA/1PC RES ASR PSPT ET    
+                                              CTC CKIN ASVC                     
+ 96. 1PENG/JIAL+          BN058  35K    Q PEK NWSFH8 FBA/1PC PSPT               
+                                              AQQ/FCL/USA ESTA/Z/USA ET API    +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              CTC DOCS                          
+ 97. 1PENG/XIA        BA2 BN004  42J    S PEK MYFSEE FBA/1PC FF PSPT            
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS                 
+ 98. 1PULCINI/LUCR+              57A    V PEK NBKHKT FBA/2PC O PSM RES ASR      
+                                              PSPT ET CTC CKIN                  
+ 99. 1QI/HAO              BN029  49B    L PEK MWJ85R FBA/1PC I O PSM MSG EDI    
+                                              PSPT AQQ/FCL/USA ESTA/Z/USA ET    
+                                              CTC CKIN DOCS DOCA/D              
+100. 1QI/KEDO+        IA2 BN028  49C    L PEK NHB8K2 FBA/1PC I O PSM MSG EDI    
+                                              PSPT AQQ/FCL/USA ESTA/Z/USA ET    
+                                              CTC CKIN DOCS DOCA/D              
+101. 1QIN/ZHEN+           BN041  43B    Q PEK MZMV0N FBA/1PC NRS PSPT           
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC DOCS ITPX                     
+102. 1QIU/SHIJ+        M2        32K    V PEK NZWSJB FBA/2PC PSM RES WCHS       
+                                              ASR PSPT ET CTC FOID CKIN ASVC    
+103. 1QIU/XIXI+                  47A    W PEK MCRL85 FBA/1PC RES ASR FF PSPT    
+                                              ET CTC ASVC                       
+104. 1RONG/GUAN+          BN043  53D    V PEK NB0PK1 FBA/2PC O PSM ASR PSPT     
+                                              AQQ/FCL/USA ESTA/Z/USA ET API    +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              CTC FOID CKIN DOCS                
+105. 1SHANG/YAOK+     DA2        51J    S PEK NXNVBT FBA/2PC O PSM RES ASR      
+                                              PSPT ET CTC CKIN                  
+106. 1SHEN/XI          J3        43J    Q PEK MGHB28 FBA/1PC ADV-PA/NP ASR      
+                                              PSPT ET CTC                       
+107. 1SHEN/XIN                   41H    L PEK MB3JRJ FBA/2PC O RES ASR PSPT     
+                                              ET CTC CKIN ASVC                  
+108. 1SHENG/TONG                        R PEK MCP0B1 FBA/2PC FF PSPT ET CTC     
+                                              CKIN                              
+109. 1SHI/HUA                           W PEK NGRPXS FBA/1PC O MSG ADV-PU/NP    
+                                              PSPT ET CTC CKIN                  
+110. 1SHI/LIAN+        O2        47E    W PEK MZNR18 IFBA FBA/2PC INF PSM       
+                                              RES ASR FF PSPT ET CTC ASVC       
+111. 1SI/FANG+            BN020  52C    B PEK MGNTFK FBA/1PC I PSM ASR EDI      
+                                              PSPT AQQ/FCL/USA ESTA/Z/USA ET    
+                                              CTC CTCA CKIN DOCS                
+112. 1SONG/JIGU+       L2        34J    Q PEK NBN18M FBA/1PC MSG ADV-PU/NP      
+                                              ASR FF PSPT ET CTC CIP CKIN       
+                                               SPCA                             
+113. 1SONG/BIHU+                 54C    W PEK MGF92C FBA/2PC O RES ASR PSPT     
+                                              ET CTC                           +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+114. 1SU/GUAN+         V2        50K    S PEK MW73GK FBA/2PC O PSM RES ASR      
+                                              ET CTC CKIN                       
+115. 1SUN/SHUA+                  14H    R PEK PT4SP7 FBA/2PC O RES MSG          
+                                              ADV-PU/NP ASR FF PSPT ET CTC      
+                                              CKIN  SPCA                        
+116. 1SUN/MAXI+        J3        43K    Q PEK MGHB28 FBA/1PC CHD PSM            
+                                              ADV-PA/NP ASR PSPT ET CTC CKIN    
+117. 1SUN/YU           J3        43L    Q PEK MGHB28 FBA/1PC ADV-PA/NP ASR      
+                                              PSPT ET CTC                       
+118. 1SUN/HUI             BN032  48J    W PEK MK2NTK FBA/1PC I PSM FF EDI       
+                                              PSPT AQQ/FCL/USA ESTA/Z/USA ET    
+                                              CTC CKIN DOCS                     
+119. 1SUN/XIAO+                         S PEK MT562X FBA/1PC PSPT ET CTC        
+120. 1TANG/SHUH+          BN035  41B    B PEK NETVN9 FBA/1PC I PSM EDI PSPT     
+                                              AQQ/FCL/USA ESTA/Z/USA ET CTC     
+                                              CKIN DOCS                         
+121. 1TANG/AN                           I PEK PH1BZ2 FBA/2PC ID SA PSPT ET      
+                                              CTC CKIN                          
+122. 1TIAN/CHUN+      SA2 BN053  45B    Q PEK MHE7Z2 FBA/2PC O MSG PSPT         
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS                    +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+123. 1WANG/SIYI           BN018  55K    B PEK MDMMRL FBA/1PC I PSM EDI PSPT     
+                                              AQQ/FCL/USA ESTA/Z/USA ET CTC     
+                                              CKIN DOCS                         
+124. 1WANG/JIAN+          BN015  49D    Q PEK PV3620 FBA/1PC PSM ASR PSPT       
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS                 
+125. 1WANG/SHUG+          BN034  41E    Q PEK PD0DBZ FBA/2PC I EDI PSPT         
+                                              AQQ/FCL/USA ESTA/Z/USA ET CTC     
+                                              CKIN DOCS                         
+126. 1WANG/YANA+          BN030  47L    V PEK PXY13Y FBA/1PC I ASR FF EDI       
+                                              PSPT AQQ/FCL/USA ESTA/Z/USA ET    
+                                              CTC CKIN DOCS ASVC                
+127. 1WANG/NING                  57C    W PEK NVVKFX FBA/2PC O RES ASR PSPT     
+                                              ET CTC CKIN                       
+128. 1WANG/DEXI+                 31L    S PEK MX0YR8 FBA/2PC O PSM RES ASR      
+                                              FF PSPT ET CTC FOID CKIN ASVC     
+129. 1WANG/WENY+       U2        52J    S PEK PE1P7B FBA/1PC RES ASR PSPT ET    
+                                              CTC                               
+130. 1WANG/XIN            BN046  50A    S PEK MLKXTC FBA/2PC ASR FF PSPT        
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS ITPX           +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+131. 1WANG/ZHON+                        W PEK PFXSR2 FBA/1PC O MSG ADV-PU/NP    
+                                              PSPT ET CTC CKIN                  
+132. 1WEI/HONG+           BN039  46C    Q PEK PB7V98 FBA/1PC ASR FF PSPT        
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS ITPX ASVC       
+133. 1WEI/HAIX+           BN008  45H    Q PEK NEGNML FBA/1PC PSPT               
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS ITPX            
+134. 1WU/RAYM+                   55J    V PEK NLJDSE FBA/2PC O PSM RES ASR      
+                                              PSPT ET CTC FOID CKIN             
+135. 1WU/QI            R2        43C    S PEK NTMP6F FBA/2PC O PSM RES WCHR     
+                                              ASR PSPT ET CTC CKIN ASVC         
+136. 1XIAO/LEI         F2        12L    R PEK MDR3LY FBA/2PC O RES ASR PSPT     
+                                              ET CTC CKIN                       
+137. 1XIE/KEKE            BN040  36C    S PEK MTGJJG FBA/1PC FF PSPT            
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC DOCS DOCA/D                   
+138. 1XIE/YING+           BN026  45A    L PEK MH77PN FBA/2PC O PSM ASR FF       
+                                              PSPT AQQ/FCL/USA ESTA/Z/USA ET    
+                                              API CTC FOID WEB CKIN DOCS        
+                                              ITPX ASVC                        +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+139. 1XIN/BAOH+        N3        38J    W PEK NHZMR3 FBA/1PC WCHR ADV-PA/NP     
+                                              ASR PSPT ET CTC                   
+140. 1XIN/YING         N3        37E    W PEK NHZMR3 FBA/1PC ADV-PA/NP ASR      
+                                              PSPT ET CTC                       
+141. 1XU/KEXU+                          S PEK NFE28H FBA/1PC PSPT ET CTC        
+142. 1XU/SHOU+         W2               S PEK MG37XR FBA/2PC O PSM ET CTC       
+                                              CKIN                              
+143. 1XU/JIAP+         P2        36D    W PEK PVG62M FBA/1PC RES WCHR ASR       
+                                              PSPT ET CTC ASVC                  
+144. 1YAN/DAMI+        Y2 BN038  49K    S PEK NJ7R03 FBA/1PC ASR PSPT           
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS ITPX            
+145. 1YAN/JIYU         T2               S PEK PHZQ3K FBA/1PC PSM ET CTC CKIN    
+146. 1YANG/KE                    47D    S PEK NWN8WQ FBA/2PC RES ASR FF PSPT    
+                                              ET CTC CKIN  SPCA  ASVC           
+147. 1YAO/HUAN+        O2               W PEK MZNR18 FBA/2PC PSPT               
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC DOCS ITPX                     
+148. 1YE/BING+         H2 BN005  15A    R PEK NEMV6S FBA/2PC O PSM ASR FF       
+                                              PSPT AQQ/FCL/USA ESTA/A/USA ET    
+                                              API CTC FOID WEB CKIN DOCS       +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              ITPX                              
+149. 1YE/LILY+         H2 BN006  15C    R PEK NEMV6S FBA/2PC O PSM ASR PSPT     
+                                              AQQ/FCL/USA ESTA/A/USA ET API     
+                                              CTC FOID WEB CKIN DOCS ITPX       
+150. 1YIN/JIAN+                         S PEK MFDZZ8 FBA/1PC PSM ET CTC CKIN    
+151. 1YU/JING+                   14D    R PEK PGC864 FBA/2PC O PSM RES MSG      
+                                              ADV-PU/NP ASR FF PSPT ET CTC      
+                                              CIP CKIN  SPCA                    
+152. 1YU/KAIM+                   47B    W PEK PDDQ4C FBA/1PC RES ASR PSPT ET    
+                                              CTC ASVC                          
+153. 1YUAN/TING+                        Q PEK MTD8ZP FBA/2PC O MSG ADV-PU/NP    
+                                              PSPT ET CTC CKIN                  
+154. 1YUAN/WEIJ+          BN052  45E    Q PEK MG4SC5 FBA/2PC PSPT               
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC DOCS                          
+155. 1YUAN/SHIQ+                        S PEK MHT8NX FBA/2PC O PSM PSPT ET      
+                                              CTC CKIN                          
+156. 1ZHANG/XIUJ+                       R PEK PDWYDR FBA/2PC FF PSPT ET CTC     
+                                              CIP CKIN  SPCA                    
+157. 1ZHANG/NI                          B PEK MK554Y FBA/1PC I O PSPT ET        
+                                              CTC CKIN                         +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+158. 1ZHANG/QI                   51E    V PEK PEWEW0 FBA/2PC RES ASR PSPT ET    
+                                              CTC                               
+159. 1ZHANG/JUN           BN016  33E    W PEK MZEXBL FBA/2PC PSM FF PSPT        
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN  SPCA  DOCS ITPX     
+160. 1ZHANG/JUNM+         BN054  35H    W PEK NDJRQS FBA/1PC ASR FF PSPT        
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS DOCA/D ASVC         
+161. 1ZHANG/YUAN+                54J    W PEK NCGHD0 FBA/2PC O RES MSG          
+                                              ADV-PU/NP ASR PSPT ET CTC CKIN    
+162. 1ZHANG/BAOJ+      X2        39H    S PEK PTZHHW FBA/2PC O PSM WCHR         
+                                              ADV-PA/NP ASR PSPT ET CTC FOID    
+                                              CKIN                              
+163. 1ZHANG/CHON+      S2               S PEK PT45WB FBA/2PC O PSPT ET CTC      
+                                              CKIN                              
+164. 1ZHANG/DIFE+         BN036  42E    S PEK MF149P FBA/2PC NRS FF PSPT        
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS ITPX            
+165. 1ZHANG/RUNS+                       S PEK PW3QJL FBA/1PC PSPT ET CTC        
+166. 1ZHANG/YUQI                        S PEK MWRKR0 FBA/1PC PSPT ET CTC        
+167. 1ZHANG/ZHI                  47C    S PEK PZNJPN FBA/2PC RES ASR FF PSPT   +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC DOCS ITPX ASVC                
+168. 1ZHANG/YAQI                        T PEK ND2BZY FBA/2PC O PSM FF PSPT      
+                                              ET CTC CKIN                       
+169. 1ZHANG/GUOC+                       L PEK PXNL31 FBA/2PC O PSPT ET CTC      
+                                              CKIN                              
+170. 1ZHANG/PEIL+      G2        14C    R PEK NBCYJ4 FBA/2PC PSM WCHR           
+                                              ADV-PA/NP ASR FF ET CTC           
+171. 1ZHAO/RUOX+          BN012  33A    W PEK NY1Y64 FBA/1PC ASR FF PSPT        
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN  SPCA  DOCS ITPX     
+                                              ASVC                              
+172. 1ZHAO/YONG+                        S PEK NTF5DB FBA/2PC O PSPT ET CTC      
+                                              CKIN                              
+173. 1ZHENG/JITO+                42D    S PEK PTKX6G FBA/1PC RES ASR FF PSPT    
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS ITPX ASVC           
+174. 1ZHENG/TING+                       N PEK MZ6VKW ID SA PSPT CTC             
+175. 1ZHONG/YANG                 15J    R PEK NLLGVF FBA/2PC RES ASR FF PSPT    
+                                              ET CTC CIP CKIN  SPCA             
+176. 1ZHOU/KAI            BN025  46H    Q PEK MVEWFC FBA/2PC PSM ASR FF PSPT   +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CIP WEB CKIN DOCS ITPX        
+                                              ASVC                              
+177. 1ZHOU/YULA+                 38D    Q PEK PKDDYR FBA/2PC O PSM RES ASR      
+                                              PSPT ET CTC FOID CKIN ASVC        
+178. 1ZHOU/DING+       M2        32J    V PEK NZWSJB FBA/2PC PSM RES WCHR       
+                                              ASR PSPT ET CTC FOID CKIN ASVC    
+179. 1ZHOU/CHUN+       R2        43D    S PEK NTMP6F FBA/2PC O PSM RES WCHR     
+                                              ASR PSPT ET CTC CKIN ASVC         
+180. 1ZHOU/CHUX+                        S PEK PVHF1S FBA/1PC FF PSPT ET CTC     
+181. 1ZHOU/GUIQ+                 49H    L PEK MTV3LQ O PSM RES MSG ADV-PU/NP    
+                                              ASR FF PSPT CTC FOID CKIN         
+182. 1ZHU/JINP+           BN019  12C    R PEK NECF22 FBA/2PC PSM ASR FF PSPT    
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC WEB CKIN DOCS ITPX            
+183. 1ZHU/JIAN+           BN045  34K    Q PEK NK97BN FBA/2PC O ASR FF PSPT      
+                                              AQQ/FCL/USA ESTA/Z/USA ET API     
+                                              CTC CKIN DOCS DOCA/D              
+184. 1ZHU/JUNH+                  50C    L PEK PT97JT FBA/2PC O RES MSG          
+                                              ADV-PU/NP ASR PSPT ET CTC CKIN    
+185. 1ZOU/LIYA+                  50L    S PEK PTG04D FBA/2PC O RES ASR PSPT    +
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+                                              ET CTC CKIN                       
+186. 2ZZZCREW                           N PEK MJ0DCY CKIN                       
+      ZZZCREW                           N PEK MJ0DCY                            
+187. 3ZZZCREW                           N PEK NC005W CKIN                       
+      ZZZCREW                           N PEK NC005W                            
+      ZZZCREW                           N PEK NC005W                            
+188. 12ZZZCREW                          N PEK NXP68M CKIN                       
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+>
+>PD: CA818/27APR24*LAX                                                   OP/NAM-
+777/300D GTD/134  POS/GATE BDT2115 SD2205 ED2205  SA0410  FT1505                
+184. 1ZHU/JUNH+                  50C    L PEK PT97JT FBA/2PC O RES MSG          
+                                              ADV-PU/NP ASR PSPT ET CTC CKIN    
+185. 1ZOU/LIYA+                  50L    S PEK PTG04D FBA/2PC O RES ASR PSPT     
+                                              ET CTC CKIN                       
+186. 2ZZZCREW                           N PEK MJ0DCY CKIN                       
+      ZZZCREW                           N PEK MJ0DCY                            
+187. 3ZZZCREW                           N PEK NC005W CKIN                       
+      ZZZCREW                           N PEK NC005W                            
+      ZZZCREW                           N PEK NC005W                            
+188. 12ZZZCREW                          N PEK NXP68M CKIN                       
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+      ZZZCREW                           N PEK NXP68M                            
+>
