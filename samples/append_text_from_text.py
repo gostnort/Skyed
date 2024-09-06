@@ -7,16 +7,24 @@ import os
 import re
 
 def append_text_to_log(input_command):
-    # Search for the input_command in command_sample.txt
-    with open('resources/command_sample.txt', 'r') as sample_file:
+    parent_folder = os.path.dirname(os.getcwd())
+    with open(os.path.join(parent_folder, 'resources', 'command_sample.txt'), 'r') as sample_file:
         sample_content = sample_file.read()
-        pattern = r'>(.*?{}.*?)(?=>|\Z)'.format(re.escape(input_command))
-        match = re.search(pattern, sample_content, re.DOTALL)
-
-    if match:
-        captured_content = match.group(1).strip()
-    else:
-        captured_content = "Command not found"
+        # Find the input_command first
+        command_index = sample_content.find(input_command)
+        
+        if command_index != -1:
+            # Find the previous ">" before the command, or set to 0 if not found
+            start_index = sample_content.rfind('>', 0, command_index)
+            start_index = start_index + 1 if start_index != -1 else 0
+            
+            # Find the next ">" after the command or set to end of file if not found
+            end_index = sample_content.find('>', command_index)
+            end_index = end_index if end_index != -1 else len(sample_content)
+            
+            captured_content = sample_content[start_index:end_index].strip()
+        else:
+            captured_content = "Command not found"
 
     # Get the current date and time
     current_time = datetime.now().strftime('%Y %B %d, %A, %H:%M:%S')
@@ -25,7 +33,7 @@ def append_text_to_log(input_command):
     log_entry = f"{current_time}\n{captured_content}\n\n"
 
     # Append the log entry to the specified file
-    with open(os.path.join(os.getcwd(), 'resources', 'test.log'), 'a') as log_file:
+    with open(os.path.join(parent_folder, 'resources', 'test.log'), 'a') as log_file:
         log_file.write(log_entry)
 
 if __name__ == "__main__":

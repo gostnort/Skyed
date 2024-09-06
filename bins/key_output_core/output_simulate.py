@@ -6,6 +6,7 @@ import concurrent.futures
 import yaml
 import sys
 import os
+import ctypes
 
 # Add the bins directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -21,6 +22,7 @@ class MouseClickMonitor(threading.Thread):
         self.__lock = threading.Lock()
     
     def run(self):
+        print(f"Starting MouseClickMonitor thread: {self.name}")
         with self.__listener as listener:
             listener.join()
 
@@ -36,11 +38,12 @@ class MouseClickMonitor(threading.Thread):
     def stop(self):
         if self.__listener:
             self.__listener.stop()
-            print(f'Thread {threading.current_thread().name} stopped.')
+            print(f'MouseClickMonitor thread {self.name} stopped.')
 
 class SendKey(threading.Thread):
     def __init__(self,F12Pending=5,OperatePending=0.1):
         super().__init__()
+        print(f"Starting SendKey thread: {self.name}")
         self.__keyboard = Controller()
         self.__op_delay = OperatePending
         self.__str_delay = F12Pending
@@ -76,7 +79,7 @@ class SendKey(threading.Thread):
         self.__flag.set() # unblock the thread.
 
     # F12PendingFunc must be the ScreenCapture() class including Get1stImage() and start().
-    def execute_command(self,OutputText:str,F12PendingFunc:None,bClear=True,bEsc=True,bF12=True,bPrint=True):
+    def execute_command(self, OutputText:str, F12PendingFunc:None, bClear=True, bEsc=True, bF12=True, bPrint=True):
         key_combinations = []
         if bClear:
             key_combinations.append([Key.ctrl, 'a']) 
@@ -93,62 +96,96 @@ class SendKey(threading.Thread):
                 if key == Key.f12: # From now on, the main thread will running the rest, excpet `future`.
                     print('F12 is pressed.')
                     start_time = time.time()
-                    end_time = start_time
                     future = executor.submit(F12PendingFunc) # A new thread for another function to mensure the time.
                     while True:
-                        end_time=time.time()                      
                         if future.done():
                             print(f"{threading.current_thread().name} ends the F12_While due to reaching foreign pending time.")
                             break
-                        if end_time-start_time > self.__str_delay:
+                        if time.time() - start_time > self.__str_delay:
                             print(f"{threading.current_thread().name} ends the F12_While due to reaching max delay time.")
                             break
                         time.sleep(0.05)
+                    # Wait for the result from F12PendingFunc
+                    result = future.result()
+                    if result is None:
+                        print("No result received from F12PendingFunc")
                 else:
                     time.sleep(self.__op_delay)
-######################################################################
+            print(f"SendKey thread {self.name} finished executing command.")
 
+def is_thread_alive(thread):
+    return thread.is_alive() if thread else False
 
-# Due to this function is working with the append_text_from_text.py,
-# the list_str must be from the command_sample.txt.
+def terminate_thread(thread):
+    if thread.is_alive():
+        thread_id = thread.ident
+        res = ctypes.pythonapi.PyThreadState_SetAsyncExc(thread_id, ctypes.py_object(SystemExit))
+        if res > 1:
+            ctypes.pythonapi.PyThreadState_SetAsyncExc(thread_id, 0)
+            print('Exception raise failure')
+
 def sample_call():
-    import timeit
     send_key = SendKey()
-    list_str = ['SY: CA818/01JUN24', 'PD: CA818/01JUN24*LAX,WCH']
+    list_str = ['SE:CA818/01JUN24/*IADLAX', 'PD: CA818/01JUN24*LAX,INAD']
     list_index = 0
-    mouse = MouseClickMonitor(3)
+    STOP_LISTEN_MOUSE = 2
+    TIME_OUT_SECOND = 1
+    mouse = MouseClickMonitor(STOP_LISTEN_MOUSE)
     mouse.start()
+    print(f"Started MouseClickMonitor thread: {mouse.name}")
     file_path = get_file_path_from_config()
     print(f"Monitoring file: {file_path}")
-    monitor = FileMonitor(file_path)
-    monitor.start()
+    monitor = FileMonitor.create_and_start(file_path, callback=file_change_callback)
+    time.sleep(0.1)  # Give some time for the thread to start
     try:
-        while mouse.is_alive():  # the main thread is not waiting without this while loop.
+        while mouse.is_alive() and monitor.is_alive():
             if mouse.count > 0:
-                if list_index != len(list_str):
-                    total_time = timeit.timeit(lambda: send_key.execute_command(list_str[list_index], monitor.get_latest_result, bPrint=False),
-                                               number=1)
-                    print(f"Index {list_index} consumes time {total_time:.4f} second.")
-                    result = monitor.get_latest_result(timeout=5)  # Get the result from the monitoring module
+                if list_index < len(list_str):
+                    # Add a small delay to ensure the FileMonitor thread is ready
+                    time.sleep(0.1)
+                    send_key.execute_command(list_str[list_index], monitor.get_latest_result, bPrint=False)
+                    result = monitor.get_latest_result(timeout=TIME_OUT_SECOND)
                     if result:
                         print(f"Latest result: {result}")
                     else:
                         print("No new content detected")
-                    list_index = list_index + 1
-            if mouse.count == 3:
-                print("Stopping monitor...")
-                monitor.stop()
-                mouse.stop()
+                    list_index += 1
+                else:
+                    print("All commands executed. Exiting...")
+                    break  # Exit the while loop after completing all commands
+            if mouse.count == STOP_LISTEN_MOUSE:
+                print("Mouse click limit reached. Exiting...")
                 break
             time.sleep(0.3)  # avoid this While consume too much CPU.
+    except Exception as e:
+        print(f"An error occurred: {e}")
     finally:
-        monitor.join()
-        mouse.join()
+        print("Cleaning up threads...")
+        monitor.stop()
+        mouse.stop()
+        # Ensure threads are terminated
+        terminate_thread(monitor)
+        terminate_thread(mouse)
+        monitor.join(timeout=TIME_OUT_SECOND)
+        mouse.join(timeout=TIME_OUT_SECOND)
+        if monitor.is_alive():
+            print(f"FileMonitor thread {monitor.name} couldn't be terminated normally. Forcing termination...")
+            FileMonitor.terminate(monitor)
+        else:
+            print(f"FileMonitor thread {monitor.name} terminated.")
+        if mouse.is_alive():
+            print(f"MouseClickMonitor thread {mouse.name} couldn't be terminated normally.")
+        else:
+            print(f"MouseClickMonitor thread {mouse.name} terminated.")
+        print(f"Main thread {threading.current_thread().name} exiting.")
 
 def get_file_path_from_config():
     with open('resources/keyboard_outputing.yml', 'r') as file:
         config = yaml.safe_load(file)
     return config['default_path']
+
+def file_change_callback(content):
+    print(f"File changed. New content: {content}")
 
 if __name__=="__main__":
     sample_call()
