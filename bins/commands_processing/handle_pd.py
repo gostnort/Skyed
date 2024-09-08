@@ -16,8 +16,10 @@ class PD():
         self.__pax_dict_in_list=[]
         self.ErrorMessage=[]
         self.AsvcKeys = []  # The list stores keys that has a property of 'ASVC' from __pd_dict.
+        self.__item_with_properties = {}
         self.__separate_pd_items()
         self.Properties = self.collect_properties()
+        self.__add_none_existing_properties()
         self.__fill_out_pax_dict()
         self.__verified_all_sn()
         return
@@ -168,19 +170,27 @@ class PD():
                         properties = line[52:].split()  # Start from 52nd character (45 + 7)
                     else:
                         properties = line[45:].split()
-                    item_properties.update(properties)
-            
+                    item_properties.update(properties)           
+            self.__item_with_properties[key] = list(item_properties)
             for prop in item_properties:
                 if prop in property_counts:
                     property_counts[prop] += 1
                 else:
-                    property_counts[prop] = 1
-                
+                    property_counts[prop] = 1               
                 # Record the key if 'ASVC' is found
                 if prop == 'ASVC' and key not in self.AsvcKeys:
-                    self.AsvcKeys.append(key)
-        
+                    self.AsvcKeys.append(key)                 
         return property_counts
+    
+    def __add_none_existing_properties(self):
+        # NET
+        # Count items without 'ID' and 'ET' properties
+        net_count = sum(1 for key, props in self.__item_with_properties.items() 
+                if 'ID' in props and 'ET' not in props)
+        # Add 'NET' to Properties
+        self.Properties['NET'] = net_count
+
+
 
 def main():
     import sys
@@ -190,7 +200,7 @@ def main():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     # Add the parent directory of 'bins' to the Python path
     project_root = os.path.dirname(os.path.dirname(current_dir))
-    pd_sample_path = os.path.join(project_root, 'resources', 'samples', 'pd_all.txt')
+    pd_sample_path = os.path.join(project_root, 'resources', 'samples', 'pdStar.txt')
     print(pd_sample_path)
     pdcontent = ReadTxt2List(pd_sample_path)
     pd = PD(pdcontent)

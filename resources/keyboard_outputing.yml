@@ -1,40 +1,63 @@
 default_path: "C:\\Users\\gostn\\my_github\\skyed\\resources\\test.log"
-arrival: "${arrival}"
 arrival_section:
   - sy:
-    command: "SY ${arrival_flight_number}/${arrival_date}/${arrival}"
+    command: "SY: ${arrival_flight_number}/${arrival_date}/${arrival}"
     pages_command: "PF1"
   - se:
-    command: "SE ${arrival_flight_number}/${arrival_date}/*${arrival}LAX"
+    command: "SE: ${arrival_flight_number}/${arrival_date}/*${arrival}LAX"
     pages_command: "PF1"
 departure_section:
-  av: 
+  - av: 
     command: "AV CA${departure_flight_number}/${departure_date}"
     pages_command: null
-  ft: 
+  - ft: 
     command: "FT ${departure_flight_number}/${departure_date}"
     pages_command: null
-  sy: 
-    command: "sy"
+  - sy: 
+    command: "SY: ${departure_flight_number}/${departure_date}/LAX"
     pages_command: "PF1"
-  pd_inbound:
-    command: "PD*,I,ETWN"
+  - pd:
+    command: "PD: ${departure_flight_number}/${departure_date}/*LAX"
     pages_command: "PN1"
-  pd_outbound:
-    command: "PD*,O,ETWN"
-    pages_command: "PN1"
-  pd_domestic:
-    command: "PD*,NI,NO,ETWN"
-    pages_command: "PN1"
-  special_DEL_Num: 
+    ignore_elements:
+      - "CTC"
+      - "API"
+      - "AQQ"
+      - "ESTA"
+      - "DOC"
+      - "PSPT"
+      - "CKIN"
+      - "ASR"
+      - "FBA"
+      - "IFBA"
+      - "ET"
+      - "FOID"
+      - "WEB"
+      - "+"
+      - "PSM"
+      - "FF"
+      - "RES"
+      - "ASVC"
+      - "MSG"
+      - "ADV"
+      - "SPCA"
+      - "CIP"
+      - "SPML"
+      - "CHD"
+      - "IET"
+      - "PCTC"
+      - "NRS"
+      - "ID"
+      - "SA"
+  - special_DEL_Num: 
     command: "BND ${departure_flight_number}/${departure_date}"
     pages_command: null
-  comment_INOP_Seat: 
-    command: "airc:ca/${ac_reg}"
+  - comment_INOP_Seat: 
+    command: "AIRC:CA/${ac_reg}"
     pages_command: null
-  comment_CWD: 
-    command: "cwd:${departure_flight_number}"
+  - comment_CWD: 
+    command: "CWD:${departure_flight_number}"
     pages_command: "PN1"
-  comment_Inbound_Late: 
-    command: "jcsy ${departure_flight_number}/${departure_date}/LAX,i"
+  - comment_Inbound_Late: 
+    command: "JCSY ${departure_flight_number}/${departure_date}/LAX,I"
     pages_command: "PN1"
