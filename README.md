@@ -1,4 +1,6 @@
-# Skyed (Simulated KeYboard and E-t-e-r-m Data)
+# Skyed 
+
+this is an app that Simulate KeYboard output and process the E-t-e-r-m Data.
 
 ## Logic
 
