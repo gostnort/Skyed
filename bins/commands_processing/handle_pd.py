@@ -16,9 +16,10 @@ class PD():
         self.__pax_dict_in_list=[]
         self.ErrorMessage=[]
         self.AsvcKeys = []  # The list stores keys that has a property of 'ASVC' from __pd_dict.
-        self.__item_with_properties = {}
+        self.MsgKeys = []  # The list stores keys that has a property of 'MSG' from __pd_dict.
+        self.__item_with_properties = {} # The key is the serial number of the item from __pd_dict. The value is a list of properties.
         self.__separate_pd_items()
-        self.Properties = self.collect_properties()
+        self.Properties = self.collect_properties() # Returns a dictionary of properties and their counts.
         self.__add_none_existing_properties()
         self.__fill_out_pax_dict()
         self.__verified_all_sn()
@@ -179,7 +180,10 @@ class PD():
                     property_counts[prop] = 1               
                 # Record the key if 'ASVC' is found
                 if prop == 'ASVC' and key not in self.AsvcKeys:
-                    self.AsvcKeys.append(key)                 
+                    self.AsvcKeys.append(key)
+                # Record the key if 'MSG' is found
+                if prop == 'MSG' and key not in self.MsgKeys:
+                    self.MsgKeys.append(key)
         return property_counts
     
     def __add_none_existing_properties(self):
@@ -206,6 +210,7 @@ def main():
     pd = PD(pdcontent)
     print(pd.Properties)
     print(pd.AsvcKeys)
+    print(pd.MsgKeys)
     #print(pd.GetSameNames())
     #print(pd.GetSameSeats())
     #print(pd.GetLastCount(pdcontent))
