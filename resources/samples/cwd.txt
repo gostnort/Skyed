@@ -1,0 +1,23 @@
+ CWD:CA0818/20JUL24   IAD LAX PEK                                 CREW NUMBER:3-
+ NO.             NAME             ORG DST CNT G  BIRTH   PSPT-NM  EXPRIY TYP CKI
+ --- ---------------------------- --- --- --- - ------- --------- ------ --- ---
+ 14. WANG/JIANLONG                LAX PEK CN  M 17SEP99 SE0086170 290204        
+ 15. GUO/YUE                      LAX PEK CN  F 31AUG99 SE0541378 260923        
+ 16. DENG/HAILI                   LAX PEK CN  F 21MAR97 SE0542109 261012        
+ 17. FENG/JIALI                   LAX PEK CN  F 07SEP99 SE0542111 261012        
+ 18. LI/YING                      LAX PEK CN  F 20OCT97 SE0520904 260218        
+ 19. ZHOU/QINGJIE                 LAX PEK CN  M 19JUN86 SE0096840 290306        
+ 20. LIU/MINGJIN                  LAX PEK CN  M 03JUL83 SE0574050 280704        
+ 21. WANG/YUNLI                   LAX PEK CN  F 10APR94 SE0548539 270208        
+ 22. CHEN/QIUYU                   LAX PEK CN  F 01JUL96 SE0568654 280411        
+ 23. LIU/YUMIN                    LAX PEK CN  F 28FEB00 SE0545537 261206        
+ 24. WANG/CHENXIN                 LAX PEK CN  F 24AUG99 SE0538862 260729        
+ 25. LIU/LU                       LAX PEK CN  F 28APR96 SE0573884 280703        
+ 26. ZHAO/RUNDONG                 LAX PEK CN  M 01FEB95 SE0525002 260508        
+ 27. LONG/ZIYI                    LAX PEK CN  F 01FEB93 SE0519241 251224        
+ 28. SUN/XUENING                  LAX PEK CN  F 19DEC99 SE0581905 281010        
+ 29. XU/HANG                      LAX PEK CN  F 18JAN00 SE0581908 281010        
+ 30. WANG/KANG                    LAX PEK CN  M 29JUL94 SE0541807 260930        
+ 31. SONG/JIAXIN                  LAX PEK CN  F 26JUL99 SE0540095 260823        
+ 32. JIN/ZIQING                   LAX PEK CN  F 20MAY97 SE0566970 280315        
+ 33. ZHANG/JIE                    LAX PEK CN  M 19AUG76 SE0553955 270705        

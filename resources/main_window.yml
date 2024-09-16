@@ -1,9 +1,60 @@
 window_title: "Skyed 0.3"
 main_window_width: 600
-main_window_height: 150
-main_window_min_width: 200
-main_window_min_height: 100
-QLineEdit_short_width: 120
-QLineEdit_long_width: 300
-pending_time_value: 0.5
-triggered_button_default_text: "Select the Window"
+main_window_height: 400
+main_window_min_width: 400
+main_window_min_height: 300
+
+briefing_ui:
+  label: "Sample: CA818/CA818/01JUL/01JUL/IAD or CA770/SZX"
+  info_box_default: "CA984/PEK"
+  buttons:
+    arrival: "Arrival"
+    departure: "Departure"
+    check_names: "Check Names"
+    check_seats: "Check Seats"
+    export: "Export"
+
+menu:
+  main: "Main Menu"
+  briefing: "Briefing"
+  crew_gendec: "Crew GenDec"
+  
+crew_gendec_ui:
+  paste_cwd: "Paste CWD"
+  get_gendec: "Get General Declaration"
+  crew_gendec_button_width: 170
+
+stylesheets:
+  main_window: |
+    background-color: #CCCCCC;
+  menu_bar: |
+    border-bottom: 1px solid #404040;
+    min-height: 18px;
+  menu_bar_item: |
+    padding: 0px 10px;
+    min-height: 18px;
+  line_edit: |
+    border: none;
+    background-color: transparent;
+  info_box: |
+    padding: 1px;
+    background-color: white;
+  rounded_button: |
+    QPushButton {
+      border-radius: 5px;
+      background-color: #f0f0f0;
+      border: 1px solid #c0c0c0;
+      padding: 5px;
+      text-align: center;
+    }
+    QPushButton QLabel {
+      color: black;
+      qproperty-alignment: AlignCenter;
+    }
+    QPushButton:hover {
+      background-color: #e0e0e0;
+    }
+    QPushButton:pressed {
+      background-color: #d0d0d0;
+      border: 2px solid #a0a0a0;
+    }

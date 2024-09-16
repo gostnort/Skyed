@@ -1,17 +1,23 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog
-from PySide6.QtWidgets import QLineEdit, QVBoxLayout, QWidget
-from PySide6.QtWidgets import QHBoxLayout, QLabel
-from PySide6.QtWidgets import QFrame, QMessageBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QMessageBox
 from PySide6.QtGui import QIcon
 from PySide6.QtCore import Qt
 import os
 import yaml
 import sys
-from bins.button_logic import triggered_button
+from ui_components.briefing_ui import BriefingUI
+from ui_components.crew_gendec_ui import CrewGenDecUI
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setContentsMargins(5, 0, 5, 10)
+        self.setup_window()
+        self.create_menu_bar()
+        self.setup_central_widget()
+        self.briefing_ui = BriefingUI(self.wnd_config, self.main_layout)
+        self.crew_gendec_ui = CrewGenDecUI(self.wnd_config, self.main_layout)
+
+    def setup_window(self):
         venv_path = os.path.dirname(os.getcwd())
         root_path = ''
         # Get the Resource folder path.
@@ -23,55 +29,63 @@ class MainWindow(QMainWindow):
         # Get the setting.
         try:
             with open(os.path.join(self.resource_path, "main_window.yml"), "r") as file:
-                setting_file= file.read()
-            self.wnd_config=yaml.safe_load(setting_file)
+                setting_file = file.read()
+            self.wnd_config = yaml.safe_load(setting_file)
         except FileNotFoundError as e:
-            QMessageBox.information(None,'Error',f"The main window setting file is missing. {e}")
+            QMessageBox.information(None, 'Error', f"The main window setting file is missing. {e}")
             return
-        # Initialize the controls.
+        # Set up the main window
         self.setWindowTitle(self.wnd_config['window_title'])
-        self.resize(self.wnd_config['main_window_width'], self.wnd_config['main_window_height'])  # Set initial window size
-        self.setMinimumSize(self.wnd_config['main_window_min_width'], self.wnd_config['main_window_min_height'])  # Set minimum window size
-        app_icon = QIcon(os.path.join(self.resource_path,'pd_star.ico'))
+        self.resize(self.wnd_config['main_window_width'], self.wnd_config['main_window_height'])
+        self.setMinimumSize(self.wnd_config['main_window_min_width'], self.wnd_config['main_window_min_height'])
+        app_icon = QIcon(os.path.join(self.resource_path, 'pd_star.ico'))
         self.setWindowIcon(app_icon)
-        self.info_box = QLineEdit()
-        self.info_box.setText('CA769/CA770/30JUL/30JUL/SZX')
-        self.info_box.setStyleSheet("border: none;")
-        self.triggered_button = QPushButton(self.wnd_config['triggered_button_default_text'])
-        self.triggered_button.setCheckable(True)
-        self.triggered_button.clicked.connect(self.on_button_triggered)
-        # Add Layout.
-        main_layout=QVBoxLayout()
-        first_row_layout = QHBoxLayout()
-        first_row_layout.addWidget(self.info_box)
-        second_row_layout = QHBoxLayout()
-        second_row_layout.addWidget(self.triggered_button)
-        main_layout.addLayout(first_row_layout)
-        main_layout.addLayout(second_row_layout)
-        # Create a central widget to hold the main layout
+
+        self.setStyleSheet(f'''
+            QMainWindow {{ {self.wnd_config['stylesheets']['main_window']} }}
+            QMenuBar {{ {self.wnd_config['stylesheets']['menu_bar']} }}
+            QLineEdit {{ {self.wnd_config['stylesheets']['line_edit']} }}
+        ''')
+
+    def create_menu_bar(self):
+        menu_bar = self.menuBar()
+        main_menu = menu_bar.addMenu(self.wnd_config['menu']['main'])  
+        crew_gendec_action = main_menu.addAction(self.wnd_config['menu']['crew_gendec'])
+        crew_gendec_action.triggered.connect(self.show_crew_gendec)
+        briefing_action = main_menu.addAction(self.wnd_config['menu']['briefing'])
+        briefing_action.triggered.connect(self.show_briefing)
+       
+
+    def setup_central_widget(self):
         self.central_widget = QWidget()
-        self.central_widget.setLayout(main_layout)
         self.setCentralWidget(self.central_widget)
-        self.setStyleSheet('''
-                            QMainWindow {
-                            background-color: #CCCCCC;
-                           }''')
-        
-    def on_button_triggered(self):
-        if self.triggered_button.isChecked():
-            self.triggered_button.setText('Running')
-            info_list = self.info_box.text().split('/')
-            print(info_list)
-            success,details = triggered_button(self.resource_path,info_list)
-            if not success:
-                err_msg = f"Failed.\n {details}"
-                print(err_msg)
-                QMessageBox.information(self.central_widget,'Error',err_msg)
-            self.triggered_button.setChecked(False)
-            self.triggered_button.setText(self.wnd_config['triggered_button_default_text'])
-        else:
-            self.triggered_button.setText(self.wnd_config['triggered_button_default_text'])
-        
+        self.main_layout = QVBoxLayout(self.central_widget)
+        self.main_layout.setContentsMargins(10, 10, 10, 10)
+
+    def show_briefing(self):
+        self.clear_main_layout()
+        self.briefing_ui.create_ui()
+
+    def show_crew_gendec(self):
+        self.clear_main_layout()
+        self.crew_gendec_ui.create_ui()
+
+    def clear_main_layout(self):
+        while self.main_layout.count():
+            item = self.main_layout.takeAt(0)
+            if item.widget():
+                item.widget().deleteLater()
+            elif item.layout():
+                self.clear_layout(item.layout())
+
+    def clear_layout(self, layout):
+        while layout.count():
+            item = layout.takeAt(0)
+            if item.widget():
+                item.widget().deleteLater()
+            elif item.layout():
+                self.clear_layout(item.layout())
+
 def main():
     app = QApplication([])
     window = MainWindow()
