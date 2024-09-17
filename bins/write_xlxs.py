@@ -1,14 +1,14 @@
 from openpyxl.utils import get_column_letter, column_index_from_string
-import json
+import yaml
 from openpyxl import load_workbook
 from io import BytesIO
 
 class FillOut():
     def __init__(self, ResourcePath):
         self.__path = ResourcePath
-        with open(self.__path + r'\excel.json','r') as file:
-                json_structure = json.load(file)
-        self.__json=json_structure
+        with open(self.__path + r'\excel.yml', 'r') as file:
+            yaml_structure = yaml.safe_load(file)
+        self.__yaml = yaml_structure
         template_path = self.__path + r'\breifing.xlsx'
         # Load the template file into memory
         with open(template_path, 'rb') as template_file:
@@ -52,28 +52,28 @@ class FillOut():
         
         return cells
 
-    def WriteArrivalFlight(self,ArrivalFlight,Bol_Left=False):
+    def WriteArrivalFlight(self, ArrivalFlight, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['arrival_flight_number']
+            cell_name = self.__yaml['left_side']['arrival_flight_number']
         else:
-            cell_name=self.__json['right_side']['arrival_flight_number']
-        self.WorkSheet[cell_name]=ArrivalFlight
+            cell_name = self.__yaml['right_side']['arrival_flight_number']
+        self.WorkSheet[cell_name] = ArrivalFlight
 
-    def WriteArrivalLeg(self,ArrivalLeg,Bol_Left=False):
+    def WriteArrivalLeg(self, ArrivalLeg, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['arrival_leg']
+            cell_name = self.__yaml['left_side']['arrival_leg']
         else:
-            cell_name=self.__json['right_side']['arrival_leg']
-        self.WorkSheet[cell_name]=ArrivalLeg[:3]+'-'+ArrivalLeg[3:]
+            cell_name = self.__yaml['right_side']['arrival_leg']
+        self.WorkSheet[cell_name] = ArrivalLeg[:3]+'-'+ArrivalLeg[3:]
 
-    def WriteDepartureFlight(self,DepartureFlight,Bol_Left=False):
+    def WriteDepartureFlight(self, DepartureFlight, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['departure_flight_number']
+            cell_name = self.__yaml['left_side']['departure_flight_number']
         else:
-            cell_name=self.__json['right_side']['departure_flight_number']
-        self.WorkSheet[cell_name]=DepartureFlight
+            cell_name = self.__yaml['right_side']['departure_flight_number']
+        self.WorkSheet[cell_name] = DepartureFlight
 
-    def save_copy(self,FileName):
+    def save_copy(self, FileName):
         output_in_memory = BytesIO()
         self.__Workbook.save(output_in_memory)
         # Seek to the start of the BytesIO object before reading or writing
@@ -84,103 +84,104 @@ class FillOut():
         # Make sure the workbook is closed
         self.__Workbook.close()
 
-    def WriteDepartureLeg(self,DepartureLeg,Bol_Left=False):
+    def WriteDepartureLeg(self, DepartureLeg, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['departure_leg']
+            cell_name = self.__yaml['left_side']['departure_leg']
         else:
-            cell_name=self.__json['right_side']['departure_leg']
-        self.WorkSheet[cell_name]=DepartureLeg[:3]+'-'+DepartureLeg[3:]
+            cell_name = self.__yaml['right_side']['departure_leg']
+        self.WorkSheet[cell_name] = DepartureLeg[:3]+'-'+DepartureLeg[3:]
 
-    def WriteDepartureDate(self,DepartureDate,Bol_Left=False):
+    def WriteDepartureDate(self, DepartureDate, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['departure_flight_date']
+            cell_name = self.__yaml['left_side']['departure_flight_date']
         else:
-            cell_name=self.__json['right_side']['departure_flight_date']
-        self.WorkSheet[cell_name]=DepartureDate
+            cell_name = self.__yaml['right_side']['departure_flight_date']
+        self.WorkSheet[cell_name] = DepartureDate
 
-    def WriteArrivalSeatConfiguration(self,SeatCnf,Bol_Left=False):
+    def WriteArrivalSeatConfiguration(self, SeatCnf, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['arrival_seat_configuration']
+            cell_name = self.__yaml['left_side']['arrival_seat_configuration']
         else:
-            cell_name=self.__json['right_side']['arrival_seat_configuration']
-        self.WorkSheet[cell_name]=SeatCnf
+            cell_name = self.__yaml['right_side']['arrival_seat_configuration']
+        self.WorkSheet[cell_name] = SeatCnf
 
-    def WriteDepartureEtd(self,DepartureEtd,Bol_Left=False):
+    def WriteDepartureEtd(self, DepartureEtd, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['departure_std']
+            cell_name = self.__yaml['left_side']['departure_std']
         else:
-            cell_name=self.__json['right_side']['departure_std']
-        self.WorkSheet[cell_name]='STD:'+DepartureEtd
+            cell_name = self.__yaml['right_side']['departure_std']
+        self.WorkSheet[cell_name] = 'STD:' + DepartureEtd
         if Bol_Left:
-            cell_name=self.__json['left_side']['departure_etd']
+            cell_name = self.__yaml['left_side']['departure_etd']
         else:
-            cell_name=self.__json['right_side']['departure_etd']
-        self.WorkSheet[cell_name]='ETD:'+DepartureEtd
+            cell_name = self.__yaml['right_side']['departure_etd']
+        self.WorkSheet[cell_name] = 'ETD:' + DepartureEtd
 
-    def WriteDepartureEta(self,DepartureEta,Bol_Left=False):
+    def WriteDepartureEta(self, DepartureEta, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['departure_eta']
+            cell_name = self.__yaml['left_side']['departure_eta']
         else:
-            cell_name=self.__json['right_side']['departure_eta']
-        self.WorkSheet[cell_name]='ETA:'+DepartureEta
+            cell_name = self.__yaml['right_side']['departure_eta']
+        self.WorkSheet[cell_name] = 'ETA:' + DepartureEta
     
-    def WriteArricalAc(self,AcReg,Bol_Left=False):
+    def WriteArricalAc(self, AcReg, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['arrival_ac_reg']
+            cell_name = self.__yaml['left_side']['arrival_ac_reg']
         else:
-            cell_name=self.__json['right_side']['arrival_ac_reg']
-        self.WorkSheet[cell_name]=AcReg
+            cell_name = self.__yaml['right_side']['arrival_ac_reg']
+        self.WorkSheet[cell_name] = AcReg
 
-    def WriteDepartureBdt(self,DepartureBdt,Bol_Left=False):
+    def WriteDepartureBdt(self, DepartureBdt, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['departure_boarding_time']
+            cell_name = self.__yaml['left_side']['departure_boarding_time']
         else:
-            cell_name=self.__json['right_side']['departure_boarding_time']
-        self.WorkSheet[cell_name]=DepartureBdt
+            cell_name = self.__yaml['right_side']['departure_boarding_time']
+        self.WorkSheet[cell_name] = DepartureBdt
 
-    def WriteArrivalPax(self,ArrivalPax,Bol_Left=False):
+    def WriteArrivalPax(self, ArrivalPax, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['arrival_pax_break_down']
+            cell_name = self.__yaml['left_side']['arrival_pax_break_down']
         else:
-            cell_name=self.__json['right_side']['arrival_pax_break_down']
-        self.WorkSheet[cell_name]=ArrivalPax
+            cell_name = self.__yaml['right_side']['arrival_pax_break_down']
+        self.WorkSheet[cell_name] = ArrivalPax
 
-    def WriteDeparturePax(self,DeparturePax,Bol_Left=False):
+    def WriteDeparturePax(self, DeparturePax, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['departure_pax_break_down']
+            cell_name = self.__yaml['left_side']['departure_pax_break_down']
         else:
-            cell_name=self.__json['right_side']['departure_pax_break_down']
-        self.WorkSheet[cell_name]=DeparturePax
+            cell_name = self.__yaml['right_side']['departure_pax_break_down']
+        self.WorkSheet[cell_name] = DeparturePax
 
-    def WriteDepartureGate(self,Gate,Bol_Left=False):
+    def WriteDepartureGate(self, Gate, Bol_Left=False):
         if Bol_Left:
-            cell_name=self.__json['left_side']['departure_gate']
+            cell_name = self.__yaml['left_side']['departure_gate']
         else:
-            cell_name=self.__json['right_side']['departure_gate']
-        self.WorkSheet[cell_name]=Gate
+            cell_name = self.__yaml['right_side']['departure_gate']
+        self.WorkSheet[cell_name] = Gate
 
-    def WriteSpecials(self,Specials,Bol_Left=False):
+    def WriteSpecials(self, Specials, Bol_Left=False):
         if Bol_Left:
-            cells_range=self.__json['left_side']['Special_count']
+            cells_range = self.__yaml['left_side']['Special_count']
         else:
-            cells_range=self.__json['right_side']['Special_count']
-        cells=self.__get_cells(cells_range)
-        for cell_tmp,key in zip(cells,Specials):
-            self.WorkSheet[cell_tmp]=key + ' '+ str(Specials[key])
+            cells_range = self.__yaml['right_side']['Special_count']
+        cells = self.__get_cells(cells_range)
+        for cell_tmp, key in zip(cells, Specials):
+            self.WorkSheet[cell_tmp] = key + ' ' + str(Specials[key])
 
-    def WriteComments(self,Comments,Bol_Left=False):
+    def WriteComments(self, Comments, Bol_Left=False):
         if Bol_Left:
-            cells_range=self.__json['left_side']['Comment']
+            cells_range = self.__yaml['left_side']['Comment']
         else:
-            cells_range=self.__json['right_side']['Comment']
-        cells=self.__get_cells(cells_range)
-        for cell_tmp,key in zip(cells,Comments):
-            self.WorkSheet[cell_tmp]=Comments[key]
+            cells_range = self.__yaml['right_side']['Comment']
+        cells = self.__get_cells(cells_range)
+        for cell_tmp, key in zip(cells, Comments):
+            self.WorkSheet[cell_tmp] = Comments[key]
 
 def main():
-    xls=FillOut(r'C:\Users\gostn\我的Github库\PdStar0.2\resources')
+    xls = FillOut(r'C:\Users\gostn\我的Github库\PdStar0.2\resources')
     xls.WriteArrivalFlight("CA111")
     xls.WriteArrivalLeg('SZX-LAX')
     xls.save_copy('new_sheet.xlsx')
-if __name__=="__main__":
+
+if __name__ == "__main__":
     main()

@@ -8,7 +8,7 @@ arrival_section:
     pages_command: "PF1"
 departure_section:
   - av: 
-    command: "AV CA${departure_flight_number}/${departure_date}"
+    command: "AV ${departure_flight_number}/${departure_date}"
     pages_command: null
   - ft: 
     command: "FT ${departure_flight_number}/${departure_date}"
@@ -52,7 +52,7 @@ departure_section:
     command: "BND ${departure_flight_number}/${departure_date}"
     pages_command: null
   - comment_INOP_Seat: 
-    command: "AIRC:CA/${ac_reg}"
+    command: "AIRC:${airline}/${ac_reg}"
     pages_command: null
   - comment_CWD: 
     command: "CWD:${departure_flight_number}"

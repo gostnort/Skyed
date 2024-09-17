@@ -5,8 +5,8 @@ main_window_min_width: 400
 main_window_min_height: 300
 
 briefing_ui:
-  label: "Sample: CA818/CA818/01JUL/01JUL/IAD or CA770/SZX"
-  info_box_default: "CA984/PEK"
+  label: "Sample: CA983/984/30JUN24/01JUL24/PEK or 984/PEK"
+  info_box_default: "984/PEK"
   buttons:
     arrival: "Arrival"
     departure: "Departure"
