@@ -5,43 +5,53 @@ import os
 import re
 
 class Buttons():
-    def __init__(self, resources_path, yaml_arg):
-        super().__init__()
+    MOUSE_CLICK_LIMIT = 2
+    FILE_MONITOR_TIMEOUT = 2
+
+    def __init__(self, resources_path):
+        self.resources_path = resources_path
+        self._send_key = output_simulate.SendKey()
+        self._mouse = output_simulate.MouseClickMonitor(self.MOUSE_CLICK_LIMIT)
+        self._file_monitor = None
+        self.yaml_config = None
+
+    def initialize(self, yaml_arg):
         try:
-            self.yaml_config = self.load_and_prepare_yaml(resources_path, yaml_arg)
+            self.yaml_config = self.load_and_prepare_yaml(self.resources_path, yaml_arg)
+            file_path = self.yaml_config['default_path']
+            self._file_monitor = output_simulate.FileMonitor.create_and_start(file_path, callback=self.file_change_callback)
+            return True, ""
         except Exception as e:
             return False, str(e)
-        
-    def arrival_button_logic(self):
-        try:
-            # Initialize required classes
-            send_key = output_simulate.SendKey()
-            mouse = output_simulate.MouseClickMonitor(2)  # Assuming 2 clicks as the limit
-            file_path = self.yaml_config['default_path']
-            file_monitor = output_simulate.FileMonitor.create_and_start(file_path, callback=self.file_change_callback)
 
-            # Start mouse monitoring
-            mouse.start()
+    def arrival_button_logic(self):
+        if not self.yaml_config:
+            return False, "Buttons class not initialized"
+
+        try:
+            self._mouse.start()
 
             result_string = ""
             last_result = ""
 
             # Process commands
             for command_dict in self.yaml_config['arrival_section']:
-                if not mouse.is_alive():
+                if not self._mouse.is_alive():
                     break
 
                 # Send main command
-                result = self.send_command_and_get_result(send_key, command_dict['command'], file_monitor)
+                result = self.send_command_and_get_result(command_dict['command'])
                 result_string += self.process_result(result, last_result)
                 last_result = result
 
                 # Process page command if exists
                 if 'pages_command' in command_dict:
-                    while 'PN' in command_dict['pages_command'] and '+\n' in result:
-                        result = self.send_command_and_get_result(send_key, command_dict['pages_command'], file_monitor)
+                    while 'PN' in command_dict['pages_command']:
+                        result = self.send_command_and_get_result(command_dict['pages_command'])
                         result_string += self.process_result(result, last_result)
                         last_result = result
+                        if '+\n' not in result:
+                            break
 
             # Process the command head
             command_head = self.extract_command_head(result_string)
@@ -52,15 +62,12 @@ class Buttons():
         except Exception as e:
             return False, str(e)
         finally:
-            # Clean up
-            mouse.stop()
-            file_monitor.stop()
-            output_simulate.terminate_thread(mouse)
-            output_simulate.terminate_thread(file_monitor)
+            self._mouse.stop()
+            self._mouse.join(timeout=self.FILE_MONITOR_TIMEOUT)
 
-    def send_command_and_get_result(self, send_key, command, file_monitor):
-        send_key.execute_command(command, file_monitor.get_latest_result, bPrint=False)
-        return file_monitor.get_latest_result(timeout=1)  # 1 second timeout
+    def send_command_and_get_result(self, command):
+        self._send_key.execute_command(command, self._file_monitor.get_latest_result, bPrint=False)
+        return self._file_monitor.get_latest_result(timeout=self.FILE_MONITOR_TIMEOUT)
 
     def process_result(self, new_result, last_result):
         if new_result:
@@ -105,3 +112,11 @@ class Buttons():
 
     def file_change_callback(content):
       print(f"File changed. New content: {content}")
+
+    def cleanup(self):
+        if self._file_monitor:
+            self._file_monitor.stop()
+            self._file_monitor.join(timeout=self.FILE_MONITOR_TIMEOUT)
+            if self._file_monitor.is_alive():
+                output_simulate.FileMonitor.terminate(self._file_monitor)
+        self._file_monitor = None

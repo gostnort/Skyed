@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QPushButton, QLineEdit, QVBoxLayout, QHBoxLayout, QLabel, QTextEdit
 from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve
-from bins.button_logic import arrival_button_logic
+from bins.button_logic import Buttons
 import datetime
 import re
 
@@ -9,6 +9,7 @@ class BriefingUI:
         self.wnd_config = wnd_config
         self.main_layout = main_layout
         self.arrival_processed = False
+        self.buttons_logic = Buttons('resources')  # Initialize Buttons class
         self.create_ui()
 
     def create_ui(self):
@@ -67,15 +68,21 @@ class BriefingUI:
             # Disable all buttons during processing
             self.set_buttons_enabled(False)
 
+            # Initialize Buttons class with parsed data
+            init_success, init_error = self.buttons_logic.initialize(parsed_data)
+            if not init_success:
+                raise ValueError(f"Failed to initialize Buttons: {init_error}")
+
             # Call arrival button logic
-            success, error = arrival_button_logic('resources', parsed_data)
+            success, result = self.buttons_logic.arrival_button_logic()
             if success:
                 self.text_area.append("Arrival processing completed successfully.")
+                self.text_area.append(result)
                 self.arrival_processed = True
                 # Enable all buttons after successful processing
                 self.set_buttons_enabled(True)
             else:
-                self.text_area.append(f"Error: {error}")
+                self.text_area.append(f"Error: {result}")
                 # Re-enable only the arrival button if there was an error
                 self.buttons['arrival'].setEnabled(True)
 
@@ -142,3 +149,6 @@ class BriefingUI:
         reverse_animation.setEndValue(start)
 
         animation.finished.connect(reverse_animation.start)
+
+    def cleanup(self):
+        self.buttons_logic.cleanup()
