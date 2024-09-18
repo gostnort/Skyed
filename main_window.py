@@ -14,8 +14,9 @@ class MainWindow(QMainWindow):
         self.setup_window()
         self.create_menu_bar()
         self.setup_central_widget()
-        self.briefing_ui = BriefingUI(self.wnd_config, self.main_layout)
-        self.crew_gendec_ui = CrewGenDecUI(self.wnd_config, self.main_layout)
+        # Remove the following lines
+        # self.briefing_ui = BriefingUI(self.wnd_config, self.main_layout)
+        # self.crew_gendec_ui = CrewGenDecUI(self.wnd_config, self.main_layout)
 
     def setup_window(self):
         venv_path = os.path.dirname(os.getcwd())
@@ -64,10 +65,12 @@ class MainWindow(QMainWindow):
 
     def show_briefing(self):
         self.clear_main_layout()
+        self.briefing_ui = BriefingUI(self.wnd_config, self.main_layout)
         self.briefing_ui.create_ui()
 
     def show_crew_gendec(self):
         self.clear_main_layout()
+        self.crew_gendec_ui = CrewGenDecUI(self.wnd_config, self.main_layout)
         self.crew_gendec_ui.create_ui()
 
     def clear_main_layout(self):

@@ -1,0 +1,33 @@
+paste_cwd: "Paste CWD"
+get_gendec: "Get General Declaration"
+crew_gendec_button_width: 170
+
+stylesheets:
+  active_button: |
+    QPushButton {
+      border-radius: 5px;
+      background-color: #f0f0f0;
+      border: 1px solid #c0c0c0;
+      padding: 5px;
+      text-align: center;
+      color: black;
+    }
+    QPushButton:hover {
+      background-color: #e0e0e0;
+    }
+    QPushButton:pressed {
+      background-color: #d0d0d0;
+      border: 2px solid #a0a0a0;
+    }
+  inactive_button: |
+    QPushButton {
+      border-radius: 5px;
+      background-color: #d0d0d0;
+      border: 1px solid #b0b0b0;
+      padding: 5px;
+      text-align: center;
+      color: #808080;
+    }
+  info_box: |
+    padding: 1px;
+    background-color: white;

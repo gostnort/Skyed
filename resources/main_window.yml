@@ -4,25 +4,10 @@ main_window_height: 400
 main_window_min_width: 400
 main_window_min_height: 300
 
-briefing_ui:
-  label: "Sample: CA983/984/30JUN24/01JUL24/PEK or 984/PEK"
-  info_box_default: "984/PEK"
-  buttons:
-    arrival: "Arrival"
-    departure: "Departure"
-    check_names: "Check Names"
-    check_seats: "Check Seats"
-    export: "Export"
-
 menu:
   main: "Main Menu"
   briefing: "Briefing"
   crew_gendec: "Crew GenDec"
-  
-crew_gendec_ui:
-  paste_cwd: "Paste CWD"
-  get_gendec: "Get General Declaration"
-  crew_gendec_button_width: 170
 
 stylesheets:
   main_window: |
@@ -36,25 +21,3 @@ stylesheets:
   line_edit: |
     border: none;
     background-color: transparent;
-  info_box: |
-    padding: 1px;
-    background-color: white;
-  rounded_button: |
-    QPushButton {
-      border-radius: 5px;
-      background-color: #f0f0f0;
-      border: 1px solid #c0c0c0;
-      padding: 5px;
-      text-align: center;
-    }
-    QPushButton QLabel {
-      color: black;
-      qproperty-alignment: AlignCenter;
-    }
-    QPushButton:hover {
-      background-color: #e0e0e0;
-    }
-    QPushButton:pressed {
-      background-color: #d0d0d0;
-      border: 2px solid #a0a0a0;
-    }

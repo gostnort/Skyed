@@ -3,6 +3,8 @@ import yaml
 import os
 
 def arrival_button_logic(resources_path, yaml_arg):
+    mouse = None
+    file_monitor = None
     try:
         # Load and prepare YAML configuration
         config = load_and_prepare_yaml(resources_path, yaml_arg)
@@ -11,7 +13,13 @@ def arrival_button_logic(resources_path, yaml_arg):
         screen = output_simulate.ScreenCapture(6)
         mouse = output_simulate.MouseClickMonitor(1)
         send_key = output_simulate.SendKey()
-        file_monitor = output_simulate.FileMonitor.create_and_start(config['default_path'], callback=file_change_callback)
+        
+        # Get the file path using the new function
+        file_path = output_simulate.get_file_path_from_config()
+        if not file_path:
+            return False, "No suitable log file found for today or yesterday."
+        
+        file_monitor = output_simulate.FileMonitor.create_and_start(file_path, callback=file_change_callback)
 
         # Start mouse monitoring
         mouse.start()
@@ -22,16 +30,15 @@ def arrival_button_logic(resources_path, yaml_arg):
             if 'pages_command' in command_dict and command_dict['pages_command']:
                 send_key.execute_command(command_dict['pages_command'], screen, bPrint=False)
 
-        # Clean up
-        mouse.stop()
-        file_monitor.stop()
-
         return True, ""
     except Exception as e:
         return False, str(e)
+    finally:
+        if mouse and file_monitor:
+            output_simulate.cleanup_threads(file_monitor, mouse)
 
 def load_and_prepare_yaml(resources_path, yaml_arg):
-    with open(os.path.join(resources_path, 'keyboard_outputing.yml'), 'r') as file:
+    with open(os.path.join(resources_path, 'processing.yml'), 'r') as file:
         config = yaml.safe_load(file)
     
     # Replace placeholders with actual values

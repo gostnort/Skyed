@@ -7,6 +7,8 @@ import yaml
 import sys
 import os
 import ctypes
+import re
+from datetime import datetime, timedelta
 
 # Add the bins directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -160,32 +162,63 @@ def sample_call():
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
-        print("Cleaning up threads...")
-        monitor.stop()
-        mouse.stop()
-        # Ensure threads are terminated
-        terminate_thread(monitor)
-        terminate_thread(mouse)
-        monitor.join(timeout=TIME_OUT_SECOND)
-        mouse.join(timeout=TIME_OUT_SECOND)
-        if monitor.is_alive():
-            print(f"FileMonitor thread {monitor.name} couldn't be terminated normally. Forcing termination...")
-            FileMonitor.terminate(monitor)
-        else:
-            print(f"FileMonitor thread {monitor.name} terminated.")
-        if mouse.is_alive():
-            print(f"MouseClickMonitor thread {mouse.name} couldn't be terminated normally.")
-        else:
-            print(f"MouseClickMonitor thread {mouse.name} terminated.")
-        print(f"Main thread {threading.current_thread().name} exiting.")
+        cleanup_threads(monitor, mouse, TIME_OUT_SECOND)
 
 def get_file_path_from_config():
-    with open('resources/keyboard_outputing.yml', 'r') as file:
+    with open('resources/processing.yml', 'r') as file:
         config = yaml.safe_load(file)
-    return config['default_path']
+    
+    default_log_folder = config['default_log_folder']
+    default_log_name_re = config['default_log_name_re']
+    
+    return find_latest_log_file(default_log_folder, default_log_name_re)
+
+def find_latest_log_file(folder_path, file_name_pattern):
+    today = datetime.now()
+    
+    for _ in range(2):  # Try today and yesterday
+        date_str = today.strftime('%Y_%m_%d')
+        files = [f for f in os.listdir(folder_path) if f.startswith(date_str) and re.match(file_name_pattern, f)]
+        
+        if files:
+            # Sort files by modification time (newest first)
+            files.sort(key=lambda x: os.path.getmtime(os.path.join(folder_path, x)), reverse=True)
+            return os.path.join(folder_path, files[0])
+        
+        today -= timedelta(days=1)  # Try yesterday's date
+    
+    return None  # If no file is found
 
 def file_change_callback(content):
     print(f"File changed. New content: {content}")
 
+def cleanup_threads(monitor, mouse, timeout=1):
+    print("The finally is cleaning up threads...")
+    monitor.stop()
+    mouse.stop()
+    # Ensure threads are terminated
+    terminate_thread(monitor)
+    terminate_thread(mouse)
+    monitor.join(timeout=timeout)
+    mouse.join(timeout=timeout)
+    if monitor.is_alive():
+        print(f"FileMonitor thread {monitor.name} couldn't be terminated normally. Forcing termination...")
+        FileMonitor.terminate(monitor)
+    else:
+        print(f"FileMonitor thread {monitor.name} terminated.")
+    if mouse.is_alive():
+        print(f"MouseClickMonitor thread {mouse.name} couldn't be terminated normally.")
+    else:
+        print(f"MouseClickMonitor thread {mouse.name} terminated.")
+    print(f"Main thread {threading.current_thread().name} exiting.")
+
 if __name__=="__main__":
-    sample_call()
+    file_path = get_file_path_from_config()
+    if file_path:
+        print(f"Latest log file found: {file_path}")
+        sample_call()
+    else:
+        error_message = "No suitable log file found for today or yesterday."
+        print(error_message)
+        # Here you would typically update the text_area in the briefing_ui
+        # For example: update_briefing_ui_text_area(error_message)

@@ -9,7 +9,7 @@ class FillOut():
         with open(self.__path + r'\excel.yml', 'r') as file:
             yaml_structure = yaml.safe_load(file)
         self.__yaml = yaml_structure
-        template_path = self.__path + r'\breifing.xlsx'
+        template_path = self.__yaml['excel_template_path']
         # Load the template file into memory
         with open(template_path, 'rb') as template_file:
             template_data = template_file.read()
@@ -178,7 +178,7 @@ class FillOut():
             self.WorkSheet[cell_tmp] = Comments[key]
 
 def main():
-    xls = FillOut(r'C:\Users\gostn\我的Github库\PdStar0.2\resources')
+    xls = FillOut(r'C:\Users\gostn\my_github\skyed\resources')
     xls.WriteArrivalFlight("CA111")
     xls.WriteArrivalLeg('SZX-LAX')
     xls.save_copy('new_sheet.xlsx')

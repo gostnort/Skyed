@@ -1,15 +1,23 @@
+import yaml
+import os
 from PySide6.QtWidgets import QPushButton, QTextEdit, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QWidget
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from bins.commands_processing.handle_cwd import paste_cwd_to_textbox, process_cwd
 
 class CrewGenDecUI:
-    def __init__(self, wnd_config, main_layout):
-        self.wnd_config = wnd_config
+    def __init__(self, main_window_config, main_layout):
+        self.main_window_config = main_window_config
         self.main_layout = main_layout
         self.capt_input = None
         self.fo_input = None
         self.stw_input = None
+        self.load_config()
+
+    def load_config(self):
+        resource_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'resources')
+        with open(os.path.join(resource_path, "crew_gendec_ui.yml"), "r") as file:
+            self.config = yaml.safe_load(file)
 
     def create_ui(self):
         CENTER_MARGIN = 10
@@ -23,17 +31,18 @@ class CrewGenDecUI:
         self.right_text_box.setFont(courier_font)
 
         # Get button width from config
-        button_width = self.wnd_config['crew_gendec_ui']['crew_gendec_button_width']
+        button_width = self.config['crew_gendec_button_width']
 
         # Create buttons
-        paste_cwd_button = QPushButton(self.wnd_config['crew_gendec_ui']['paste_cwd'])
-        get_gendec_button = QPushButton(self.wnd_config['crew_gendec_ui']['get_gendec'])
+        paste_cwd_button = QPushButton(self.config['paste_cwd'])
+        get_gendec_button = QPushButton(self.config['get_gendec'])
 
         # Apply button styles
+        active_style = self.config['stylesheets']['active_button']
         for button in [paste_cwd_button, get_gendec_button]:
             button.setFixedHeight(button.sizeHint().height() * 2)
             button.setFixedWidth(button_width)
-            button.setStyleSheet(self.wnd_config['stylesheets']['rounded_button'])
+            button.setStyleSheet(active_style)
 
         # Connect button signals to slots
         paste_cwd_button.clicked.connect(self.on_paste_cwd_clicked)
@@ -74,7 +83,7 @@ class CrewGenDecUI:
         layout.setContentsMargins(0, 0, 0, 0)
         label = QLabel(label_text)
         textbox = QLineEdit()
-        textbox.setStyleSheet("background-color: white;")
+        textbox.setStyleSheet(self.config['stylesheets']['info_box'])
         layout.addWidget(label)
         layout.addWidget(textbox)
         return widget, textbox

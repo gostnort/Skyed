@@ -1,3 +1,6 @@
+import yaml
+import os
+
 from PySide6.QtWidgets import QPushButton, QLineEdit, QVBoxLayout, QHBoxLayout, QLabel, QTextEdit
 from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve
 from bins.button_logic import arrival_button_logic
@@ -5,43 +8,52 @@ import datetime
 import re
 
 class BriefingUI:
-    def __init__(self, wnd_config, main_layout):
-        self.wnd_config = wnd_config
+    def __init__(self, main_window_config, main_layout):
+        self.main_window_config = main_window_config
         self.main_layout = main_layout
         self.arrival_processed = False
-        self.create_ui()
+        self.load_config()
+
+    def load_config(self):
+        resource_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'resources')
+        with open(os.path.join(resource_path, "briefing_ui.yml"), "r") as file:
+            self.config = yaml.safe_load(file)
 
     def create_ui(self):
-        # First line: Label
-        label = QLabel(self.wnd_config['briefing_ui']['label'])
+        # Update references from self.wnd_config to self.config
+        label = QLabel(self.config['label'])
         label.setAlignment(Qt.AlignBottom)
         self.main_layout.addWidget(label)
 
         # Second line: Single-line text box
         self.info_box = QLineEdit()
-        self.info_box.setText(self.wnd_config['briefing_ui']['info_box_default'])
-        self.info_box.setStyleSheet(self.wnd_config['stylesheets']['info_box'])
+        self.info_box.setText(self.config['info_box_default'])
+        self.info_box.setStyleSheet(self.config['stylesheets']['info_box'])
         self.main_layout.addWidget(self.info_box)
 
         # Third line: Five buttons
         button_layout = QHBoxLayout()
         self.buttons = {
-            'arrival': QPushButton(self.wnd_config['briefing_ui']['buttons']['arrival']),
-            'departure': QPushButton(self.wnd_config['briefing_ui']['buttons']['departure']),
-            'check_names': QPushButton(self.wnd_config['briefing_ui']['buttons']['check_names']),
-            'check_seats': QPushButton(self.wnd_config['briefing_ui']['buttons']['check_seats']),
-            'export': QPushButton(self.wnd_config['briefing_ui']['buttons']['export'])
+            'arrival': QPushButton(self.config['buttons']['arrival']),
+            'departure': QPushButton(self.config['buttons']['departure']),
+            'check_names': QPushButton(self.config['buttons']['check_names']),
+            'check_seats': QPushButton(self.config['buttons']['check_seats']),
+            'export': QPushButton(self.config['buttons']['export'])
         }
 
         button_height = self.buttons['arrival'].sizeHint().height() * 2
-        rounded_style = self.wnd_config['stylesheets']['rounded_button']
+        active_style = self.config['stylesheets']['active_button']
+        inactive_style = self.config['stylesheets']['inactive_button']
+
         for name, button in self.buttons.items():
             button.setFixedHeight(button_height)
-            button.setStyleSheet(rounded_style)
+            if name == 'arrival':
+                button.setStyleSheet(active_style)
+            else:
+                button.setStyleSheet(inactive_style)
+                button.setEnabled(False)
             button.clicked.connect(lambda checked, b=button: self.handle_button_click(b))
             button_layout.addWidget(button)
-            if name != 'arrival':
-                button.setEnabled(False)
 
         self.main_layout.addLayout(button_layout)
 
@@ -59,7 +71,7 @@ class BriefingUI:
 
     def process_arrival_input(self):
         input_text = self.info_box.text().strip()
-        input_sample = self.wnd_config['briefing_ui']['input_sample']
+        input_sample = self.config['input_sample']
 
         try:
             parsed_data = self.parse_input(input_text)
@@ -119,8 +131,10 @@ class BriefingUI:
         for name, button in self.buttons.items():
             if name == 'arrival' or (enabled and self.arrival_processed):
                 button.setEnabled(enabled)
+                button.setStyleSheet(self.active_style)
             elif not enabled:
                 button.setEnabled(False)
+                button.setStyleSheet(self.inactive_style)
 
     def animate_button_click(self, button):
         animation = QPropertyAnimation(button, b"pos")
@@ -142,3 +156,7 @@ class BriefingUI:
         reverse_animation.setEndValue(start)
 
         animation.finished.connect(reverse_animation.start)
+
+    # Remove the class attributes for styles as they're now in the YAML file
+    # active_style = ...
+    # inactive_style = ...
