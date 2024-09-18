@@ -1,4 +1,5 @@
 from bins.key_output_core import output_simulate
+from bins.commands_processing import handle_sy, handle_se, handle_pd
 import yaml
 import os
 
@@ -57,5 +58,13 @@ def load_and_prepare_yaml(resources_path, yaml_arg):
     
     return config
 
-def file_change_callback(content):
-    print(f"File changed. New content: {content}")
+    def file_change_callback(content):
+      print(f"File changed. New content: {content}")
+
+    def cleanup(self):
+        if self._file_monitor:
+            self._file_monitor.stop()
+            self._file_monitor.join(timeout=self.FILE_MONITOR_TIMEOUT)
+            if self._file_monitor.is_alive():
+                output_simulate.FileMonitor.terminate(self._file_monitor)
+        self._file_monitor = None
