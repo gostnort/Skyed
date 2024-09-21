@@ -43,7 +43,7 @@ class MouseClickMonitor(threading.Thread):
             print(f'MouseClickMonitor thread {self.name} stopped.')
 
 class SendKey(threading.Thread):
-    def __init__(self,F12Pending=5,OperatePending=0.1):
+    def __init__(self, F12Pending=5, OperatePending=0.1):
         super().__init__()
         print(f"Starting SendKey thread: {self.name}")
         self.__keyboard = Controller()
@@ -51,7 +51,7 @@ class SendKey(threading.Thread):
         self.__str_delay = F12Pending
         self.__flag = threading.Event()
         self.__flag.set()
-        self.__lock=threading.Lock()
+        self.__lock = threading.Lock()
 
     def __type_keys(self, keys):
         print(f"{threading.current_thread().name} is sending {keys}.")
@@ -115,11 +115,15 @@ class SendKey(threading.Thread):
                     time.sleep(self.__op_delay)
             print(f"SendKey thread {self.name} finished executing command.")
 
+    def stop(self):
+        self.__flag.clear()
+        print(f'SendKey thread {self.name} stopped.')
+
 def is_thread_alive(thread):
     return thread.is_alive() if thread else False
 
 def terminate_thread(thread):
-    if thread.is_alive():
+    if thread and thread.is_alive():
         thread_id = thread.ident
         res = ctypes.pythonapi.PyThreadState_SetAsyncExc(thread_id, ctypes.py_object(SystemExit))
         if res > 1:

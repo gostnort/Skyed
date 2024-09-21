@@ -1,11 +1,11 @@
 import yaml
 import os
-
-from PySide6.QtWidgets import QPushButton, QLineEdit, QVBoxLayout, QHBoxLayout, QLabel, QTextEdit
-from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve
-from bins.button_logic import arrival_button_logic
 import datetime
 import re
+
+from PySide6.QtWidgets import QPushButton, QLineEdit, QVBoxLayout, QHBoxLayout, QLabel, QTextEdit
+from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QPoint
+from bins.button_logic import arrival_button_logic
 
 class BriefingUI:
     def __init__(self, main_window_config, main_layout):
@@ -20,18 +20,15 @@ class BriefingUI:
             self.config = yaml.safe_load(file)
 
     def create_ui(self):
-        # Update references from self.wnd_config to self.config
         label = QLabel(self.config['label'])
         label.setAlignment(Qt.AlignBottom)
         self.main_layout.addWidget(label)
 
-        # Second line: Single-line text box
         self.info_box = QLineEdit()
         self.info_box.setText(self.config['info_box_default'])
         self.info_box.setStyleSheet(self.config['stylesheets']['info_box'])
         self.main_layout.addWidget(self.info_box)
 
-        # Third line: Five buttons
         button_layout = QHBoxLayout()
         self.buttons = {
             'arrival': QPushButton(self.config['buttons']['arrival']),
@@ -42,22 +39,21 @@ class BriefingUI:
         }
 
         button_height = self.buttons['arrival'].sizeHint().height() * 2
-        active_style = self.config['stylesheets']['active_button']
-        inactive_style = self.config['stylesheets']['inactive_button']
+        self.active_style = self.config['stylesheets']['active_button']
+        self.inactive_style = self.config['stylesheets']['inactive_button']
 
         for name, button in self.buttons.items():
             button.setFixedHeight(button_height)
             if name == 'arrival':
-                button.setStyleSheet(active_style)
+                button.setStyleSheet(self.active_style)
             else:
-                button.setStyleSheet(inactive_style)
+                button.setStyleSheet(self.inactive_style)
                 button.setEnabled(False)
             button.clicked.connect(lambda checked, b=button: self.handle_button_click(b))
             button_layout.addWidget(button)
 
         self.main_layout.addLayout(button_layout)
 
-        # Fourth line: Multi-line text box with vertical scroll bar
         self.text_area = QTextEdit()
         self.main_layout.addWidget(self.text_area)
 
@@ -76,24 +72,20 @@ class BriefingUI:
         try:
             parsed_data = self.parse_input(input_text)
             
-            # Disable all buttons during processing
             self.set_buttons_enabled(False)
 
-            # Call arrival button logic
+            # Update the call to arrival_button_logic with the resources_path
             success, error = arrival_button_logic('resources', parsed_data)
             if success:
                 self.text_area.append("Arrival processing completed successfully.")
                 self.arrival_processed = True
-                # Enable all buttons after successful processing
                 self.set_buttons_enabled(True)
             else:
                 self.text_area.append(f"Error: {error}")
-                # Re-enable only the arrival button if there was an error
                 self.buttons['arrival'].setEnabled(True)
 
         except ValueError as e:
             self.text_area.append(f"Input Error: {str(e)}. Example: {input_sample}")
-            # Re-enable only the arrival button if there was an input error
             self.buttons['arrival'].setEnabled(True)
 
     def parse_input(self, input_text):
@@ -142,13 +134,12 @@ class BriefingUI:
         animation.setEasingCurve(QEasingCurve.InOutQuad)
 
         start = button.pos()
-        end = start + Qt.QPoint(0, 5)
+        end = start + QPoint(0, 5)
 
         animation.setStartValue(start)
         animation.setEndValue(end)
         animation.start()
 
-        # Reverse animation
         reverse_animation = QPropertyAnimation(button, b"pos")
         reverse_animation.setDuration(100)
         reverse_animation.setEasingCurve(QEasingCurve.InOutQuad)
@@ -156,7 +147,3 @@ class BriefingUI:
         reverse_animation.setEndValue(start)
 
         animation.finished.connect(reverse_animation.start)
-
-    # Remove the class attributes for styles as they're now in the YAML file
-    # active_style = ...
-    # inactive_style = ...

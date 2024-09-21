@@ -1,5 +1,6 @@
 default_log_folder: "C:\\Users\\gostn\\my_github\\skyed\\resources"
-default_log_name_re: "\d{4}_\d{2}_\d{2}_\d+\.log"
+default_log_name_re: |
+  \d{4}_\d{2}_\d{2}_\d+\.log
 arrival_section:
   - sy:
     command: "SY: ${arrival_flight_number}/${arrival_date}/${arrival}"

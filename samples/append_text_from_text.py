@@ -33,7 +33,8 @@ def append_text_to_log(input_command):
     log_entry = f"{current_time}\n{captured_content}\n\n"
 
     # Append the log entry to the specified file
-    with open(os.path.join(parent_folder, 'resources', 'test.log'), 'a') as log_file:
+    log_file_name = datetime.now().strftime('%Y_%m_%d_2') + '.log'
+    with open(os.path.join(parent_folder, 'resources', log_file_name), 'a') as log_file:
         log_file.write(log_entry)
 
 if __name__ == "__main__":

@@ -81,7 +81,7 @@ if __name__ == "__main__":
     def example_callback(content):
         print(f"Callback received: {content}")
 
-    file_path = os.path.join(os.getcwd(), "resources", "test.log")
+    file_path = os.path.join(os.getcwd(), "resources", "2024_09_20_2.log")
     print(f"Monitoring file: {file_path}")
     monitor = FileMonitor.create_and_start(file_path, callback=example_callback)
     TIME_OUT_SECOND = 0.5
@@ -90,6 +90,7 @@ if __name__ == "__main__":
             if not monitor.is_alive():
                 print("FileMonitor thread is not alive. Restarting...")
                 monitor = FileMonitor.create_and_start(file_path, callback=example_callback)
+                print(f"Current result: {monitor.result}")
             time.sleep(TIME_OUT_SECOND)
     except KeyboardInterrupt:
         print("Stopping monitor...")
