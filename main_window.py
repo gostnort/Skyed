@@ -1,11 +1,9 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QMessageBox
 from PySide6.QtGui import QIcon
-from PySide6.QtCore import Qt
 import os
 import yaml
 import sys
-from ui_components.briefing_ui import BriefingUI
-from ui_components.crew_gendec_ui import CrewGenDecUI
+from ui_components import BriefingUI, CrewGenDecUI
 
 class MainWindow(QMainWindow):
     def __init__(self):

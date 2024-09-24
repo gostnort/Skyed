@@ -2,7 +2,7 @@ from bins.txt_operation import ReadTxt2List, String2List
 import re
 
 class SE:
-    def __init__(self,SeContent,Symbol):
+    def __init__(self,SeContent,Symbol:str):
         super().__init__()
         if isinstance(SeContent,str):
             self.__se_content = String2List(SeContent)

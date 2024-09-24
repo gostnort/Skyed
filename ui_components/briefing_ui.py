@@ -5,7 +5,7 @@ import re
 
 from PySide6.QtWidgets import QPushButton, QLineEdit, QVBoxLayout, QHBoxLayout, QLabel, QTextEdit
 from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QPoint
-from bins.button_logic import arrival_button_logic, ButtonLogic
+from bins import ButtonLogic  # Updated import
 
 class BriefingUI:
     def __init__(self, main_window_config, main_layout):
@@ -99,8 +99,8 @@ class BriefingUI:
                 airline,
                 f"{airline}{arr_num}",
                 f"{airline}{dep_num}",
-                self.format_date(arr_date),
-                self.format_date(dep_date),
+                arr_date,
+                dep_date,
                 arrival
             ]
         elif re.match(shortcut_pattern, input_text):
@@ -110,16 +110,12 @@ class BriefingUI:
                 "CA",
                 f"CA{int(dep_num) - 1:03d}",
                 f"CA{dep_num}",
-                today.strftime("%d%b%Y").upper(),
-                today.strftime("%d%b%Y").upper(),
+                today.strftime("%d%b%y").upper(),
+                today.strftime("%d%b%y").upper(),
                 arrival
             ]
         else:
             raise ValueError("Invalid input format")
-
-
-    def format_date(self, date_str):
-        return f"{date_str[:5]}20{date_str[5:]}"
 
 
     def set_buttons_enabled(self, enabled):

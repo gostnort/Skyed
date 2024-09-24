@@ -1,9 +1,8 @@
 import yaml
 import os
 from PySide6.QtWidgets import QPushButton, QTextEdit, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QWidget
-from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
-from bins.commands_processing.handle_cwd import paste_cwd_to_textbox, process_cwd
+from bins import paste_cwd_to_textbox, process_cwd  # Updated import
 
 class CrewGenDecUI:
     def __init__(self, main_window_config, main_layout):

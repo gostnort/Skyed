@@ -2,10 +2,11 @@ import yaml
 import os
 import re
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from bins.key_output_core import output_simulate
 from bins.key_output_core.output_simulate import is_thread_alive, terminate_thread
-from bins.commands_processing import handle_sy, handle_av, handle_se,handle_pd
+from bins.commands_processing import handle_sy, handle_av, handle_se, handle_pd
+import threading
 
 class ConfigManager:
     def __init__(self, resources_path):
@@ -43,20 +44,18 @@ class ConfigManager:
 
     @staticmethod
     def find_related_log_file(folder_path, file_name_pattern, arrival_date, departure_date):
-        related_date = datetime.strptime(departure_date, '%Y-%m-%d')
-        arrival_date = datetime.strptime(arrival_date, '%Y-%m-%d')
+        related_date = datetime.strptime(departure_date, '%d%b%y')
+        _arrival_date = datetime.strptime(arrival_date, '%d%b%y')
         matching_files = []
         for _ in range(2):  # Try departure_date and arrival_date
             date_str = related_date.strftime('%Y_%m_%d')
-            files = [f for f in os.listdir(folder_path) if f.startswith(date_str) and re.match(file_name_pattern, f)]
+            files = [f for f in os.listdir(folder_path) if re.match(file_name_pattern, f)]
             if files:
-                # Sort files by modification time (newest first)
-                files.sort(key=lambda x: os.path.getmtime(os.path.join(folder_path, x)), reverse=True)
-                matching_files.extend([os.path.join(folder_path, f) for f in files])
-            if related_date == arrival_date:
+                matching_files.extend([os.path.join(folder_path, f) for f in files if f.startswith(date_str)])
+            if related_date == _arrival_date:
                 break
             else:
-                related_date = arrival_date  # Try arrival_date
+                related_date = _arrival_date  # Try arrival_date
         return matching_files if matching_files else None
 
 
@@ -65,16 +64,17 @@ class ConfigManager:
 class ButtonLogic:
     def __init__(self):
         super().__init__()
-        self._arrival_flight=''
-        self._arrival_leg=''
-        self._SeatCnf=''
-        self._ac_reg=''
-        self._arrival_pax=''
-        self._arrival_block_seats=''
-        self._departure_pax=''
-        self._departure_eta=''
-        self._departure_bdt=''
-        
+        self._arrival_flight = ''
+        self._arrival_leg = ''
+        self._SeatCnf = ''
+        self._ac_reg = ''
+        self._arrival_pax = ''
+        self._arrival_block_seats = ''
+        self._departure_pax = ''
+        self._departure_eta = ''
+        self._departure_bdt = ''
+        self.TIME_OUT_SECOND = 1
+        self.active_threads = []
 
     def arrival_button_logic(self, resources_path, yaml_arg):
         config_manager = ConfigManager(resources_path)
@@ -82,38 +82,39 @@ class ButtonLogic:
         file_monitor = None
         send_key = None
         STOP_LISTEN_MOUSE = 2
-        TIME_OUT_SECOND = 1
+        THREAD_START_TIME = 0.1
         try:
             config = config_manager.prepare_yaml(yaml_arg)
             mouse = output_simulate.MouseClickMonitor(STOP_LISTEN_MOUSE)
             send_key = output_simulate.SendKey()
             file_paths = config_manager.get_file_path(yaml_arg)
             if not file_paths:
-                return False, "No suitable log file found for departure or arrival date."
-            
+                return False, "No suitable log file found for departure or arrival date."     
             # Create a single FileMonitor for all file paths
-            file_monitor = output_simulate.FileMonitor(file_paths)
-            file_monitor.start()
-            
+            file_monitor = output_simulate.FileMonitor.create_and_start(file_paths, callback=self.call_back_result)    
+            self.active_threads.extend([mouse, file_monitor, send_key])
             mouse.start()
-            time.sleep(0.1)
+            time.sleep(THREAD_START_TIME)
             while mouse.is_alive() and file_monitor.is_alive():
                 if mouse.count > 0:
-                    file_result = []
+                    file_result = ""
                     for command_dict in config['arrival_section']:
-                        time.sleep(0.1)
-                        # Execute command once for all monitored files
+                        time.sleep(THREAD_START_TIME)
                         send_key.execute_command(command_dict['command'], file_monitor.get_latest_result, bPrint=False)
-                        result = file_monitor.get_latest_result()
-                        if result:
-                            file_result.append(result)
-                        
+                        result = file_monitor.get_latest_result(timeout=self.TIME_OUT_SECOND)
+                        if result == None:
+                            continue
+                        else:
+                            file_result='\n'.join(result)
                         if command_dict['pages_command'] is not None:
                             if "PN" not in command_dict['pages_command']:
                                 send_key.execute_command(command_dict['pages_command'], file_monitor.get_latest_result, bPrint=False)
+                                if "SE" in command_dict['command']:
+                                    pass
                                 result = file_monitor.get_latest_result()
                                 if result:
                                     self.add_new_items(file_result, result)
+                                    print(f"current result: {result}")
                             else:
                                 while True:
                                     send_key.execute_command(command_dict['pages_command'], file_monitor.get_latest_result, bPrint=False)
@@ -122,17 +123,20 @@ class ButtonLogic:
                                         added, file_result = self.add_new_items(file_result, result)
                                         if not added:
                                             break
-                    if 'SY:' in command_dict['command']:
-                        sy = handle_sy.SY(file_result, yaml_arg[5])
-                        self._arrival_flight = sy.flight
-                        self._arrival_leg = sy.leg
-                        self._SeatCnf = sy.seat_configuration
-                        self._ac_reg = sy.ac_reg
-                        self._arrival_pax = sy.checked
-                    elif 'SE:' in command_dict['command']:
-                        se = handle_se.SE(file_result, 'X')
-                        self._arrival_block_seats = se.combination_seats
-            return True, ""
+                        if 'SY:' in command_dict['command']:
+                            sy = handle_sy.SY(file_result, yaml_arg[5])
+                            self._arrival_flight = sy.flight
+                            self._arrival_leg = sy.leg
+                            self._SeatCnf = sy.seat_configuration
+                            self._ac_reg = sy.ac_reg
+                            self._arrival_pax = sy.checked
+                        elif 'SE:' in command_dict['command']:
+                            se = handle_se.SE(file_result, 'X')
+                            self._arrival_block_seats = se.combination_seats 
+                        file_result=''
+                if mouse.count == STOP_LISTEN_MOUSE:
+                        self.cleanup()
+            return True, f"{self._arrival_flight} {self._arrival_leg} {self._SeatCnf} {self._ac_reg} {self._arrival_pax} {self._arrival_block_seats}"
         except FileNotFoundError as e:
             return False, f"Configuration file not found: {str(e)}"
         except yaml.YAMLError as e:
@@ -140,10 +144,12 @@ class ButtonLogic:
         except Exception as e:
             return False, f"Unexpected error: {str(e)}"
         finally:
-            self.cleanup(mouse, file_monitor, send_key)
+            self.cleanup()
+            return False, "Threads are terminated."
 
-
-    def add_new_items(self,list_1, list_2, n=6):
+    def add_new_items(self, str_1:str, str_2:str, n:int=6):
+        list_1 = str_1.splitlines()
+        list_2 = str_2.splitlines()
         if list_1 == list_2:
             return True, list_1 # this is for the first adding.
         # Determine the comparison range: use all of list_1 if it's shorter than list_2
@@ -169,26 +175,25 @@ class ButtonLogic:
                 if item not in comparison_range:
                     list_1.append(item)
                     added = True
-        return added, list_1  # Return True if something was added, False otherwise
+        return added, '\n'.join(list_1)  # Return True if something was added, False otherwise
 
-
-    def cleanup(self, mouse, file_monitor, send_key=None):
-        threads_to_cleanup = [
-            ('MouseClickMonitor', mouse),
-            ('FileMonitor', file_monitor),
-            ('SendKey', send_key)
-        ]
-        for thread_name, thread in threads_to_cleanup:
-            if thread:
-                print(f"Stopping {thread_name} thread...")
-                thread.stop()
-                thread.join(timeout=5)  # Wait for up to 5 seconds for the thread to stop
-                if is_thread_alive(thread):
-                    print(f"{thread_name} thread couldn't be terminated normally. Forcing termination...")
-                    terminate_thread(thread)
-                    thread.join(timeout=1)  # Give it a moment to terminate
-                if not is_thread_alive(thread):
-                    print(f"{thread_name} thread terminated.")
-                else:
-                    print(f"Failed to terminate {thread_name} thread.")
+    def cleanup(self):
+        for thread in self.active_threads:
+            thread_name = thread.__class__.__name__
+            print(f"Stopping {thread_name} thread...")
+            thread.stop()
+            terminate_thread(thread)
+            thread.join(timeout=self.TIME_OUT_SECOND)
+            if is_thread_alive(thread):
+                print(f"{thread_name} thread couldn't be terminated normally. Forcing termination...")
+                terminate_thread(thread)
+                thread.join(timeout=self.TIME_OUT_SECOND)
+            if not is_thread_alive(thread):
+                print(f"{thread_name} thread terminated.")
+            else:
+                print(f"Failed to terminate {thread_name} thread.")
+        self.active_threads.clear()
         print("Cleanup completed.")
+
+    def call_back_result(self, file_content):
+        self.result = file_content

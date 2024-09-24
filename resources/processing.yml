@@ -1,25 +1,24 @@
 default_log_folder: "C:\\Users\\gostn\\my_github\\skyed\\resources"
-default_log_name_re: |
-  \d{4}_\d{2}_\d{2}_\d+\.log
+default_log_name_re: "\\d{4}_\\d{2}_\\d{2}_\\d+.log"
 arrival_section:
   - sy:
-    command: "SY: ${arrival_flight_number}/${arrival_date}/${arrival}"
+    command: "SY: {arrival_flight_number}/{arrival_date}/{arrival}"
     pages_command: "PF1"
   - se:
-    command: "SE: ${arrival_flight_number}/${arrival_date}/*${arrival}LAX"
+    command: "SE:{arrival_flight_number}/{arrival_date}/*{arrival}LAX"
     pages_command: "PF1"
 departure_section:
   - av: 
-    command: "AV ${departure_flight_number}/${departure_date}"
+    command: "AV:{departure_flight_number}/{departure_date}"
     pages_command: null
   - ft: 
-    command: "FT ${departure_flight_number}/${departure_date}"
+    command: "FT {departure_flight_number}/{departure_date}"
     pages_command: null
   - sy: 
-    command: "SY: ${departure_flight_number}/${departure_date}/LAX"
+    command: "SY: {departure_flight_number}/{departure_date}/LAX"
     pages_command: "PF1"
   - pd:
-    command: "PD: ${departure_flight_number}/${departure_date}/*LAX"
+    command: "PD: {departure_flight_number}/{departure_date}/*LAX"
     pages_command: "PN1"
     ignore_elements:
       - "CTC"
@@ -51,14 +50,14 @@ departure_section:
       - "ID"
       - "SA"
   - special_DEL_Num: 
-    command: "BND ${departure_flight_number}/${departure_date}"
+    command: "BND {departure_flight_number}/{departure_date}"
     pages_command: null
   - comment_INOP_Seat: 
-    command: "AIRC:${airline}/${ac_reg}"
+    command: "AIRC:{airline}/{ac_reg}"
     pages_command: null
   - comment_CWD: 
-    command: "CWD:${departure_flight_number}"
+    command: "CWD:{departure_flight_number}"
     pages_command: "PN1"
   - comment_Inbound_Late: 
-    command: "JCSY ${departure_flight_number}/${departure_date}/LAX,I"
+    command: "JCSY {departure_flight_number}/{departure_date}/LAX,I"
     pages_command: "PN1"
