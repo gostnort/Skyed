@@ -97,45 +97,36 @@ class ButtonLogic:
             time.sleep(THREAD_START_TIME)
             while mouse.is_alive() and file_monitor.is_alive():
                 if mouse.count > 0:
-                    file_result = ""
                     for command_dict in config['arrival_section']:
+                        file_result = []
                         time.sleep(THREAD_START_TIME)
                         send_key.execute_command(command_dict['command'], file_monitor.get_latest_result, bPrint=False)
                         result = file_monitor.get_latest_result(timeout=self.TIME_OUT_SECOND)
-                        if result == None:
+                        if result is None:
                             continue
                         else:
-                            file_result='\n'.join(result)
+                            file_result.append(result)
                         if command_dict['pages_command'] is not None:
                             if "PN" not in command_dict['pages_command']:
                                 send_key.execute_command(command_dict['pages_command'], file_monitor.get_latest_result, bPrint=False)
-                                if "SE" in command_dict['command']:
-                                    pass
-                                result = file_monitor.get_latest_result()
+                                result = file_monitor.get_latest_result(timeout=self.TIME_OUT_SECOND)
                                 if result:
-                                    self.add_new_items(file_result, result)
-                                    print(f"current result: {result}")
+                                    useless_bol,file_result = self.add_new_items(file_result, '\n'.join(result))
                             else:
                                 while True:
                                     send_key.execute_command(command_dict['pages_command'], file_monitor.get_latest_result, bPrint=False)
-                                    result = file_monitor.get_latest_result()
+                                    result = file_monitor.get_latest_result(timeout=self.TIME_OUT_SECOND)
                                     if result:
-                                        added, file_result = self.add_new_items(file_result, result)
+                                        added, file_result = self.add_new_items(file_result, '\n'.join(result))
                                         if not added:
                                             break
-                        if 'SY:' in command_dict['command']:
-                            sy = handle_sy.SY(file_result, yaml_arg[5])
-                            self._arrival_flight = sy.flight
-                            self._arrival_leg = sy.leg
-                            self._SeatCnf = sy.seat_configuration
-                            self._ac_reg = sy.ac_reg
-                            self._arrival_pax = sy.checked
-                        elif 'SE:' in command_dict['command']:
-                            se = handle_se.SE(file_result, 'X')
-                            self._arrival_block_seats = se.combination_seats 
-                        file_result=''
+                        # Call the commands_processing to process the command result.
+                        self.commands_processing(command_dict['command'], file_result, command_dict['argument'])
+                    # Break the outer while loop after processing all commands
+                    break
                 if mouse.count == STOP_LISTEN_MOUSE:
-                        self.cleanup()
+                    self.cleanup()
+                    break
             return True, f"{self._arrival_flight} {self._arrival_leg} {self._SeatCnf} {self._ac_reg} {self._arrival_pax} {self._arrival_block_seats}"
         except FileNotFoundError as e:
             return False, f"Configuration file not found: {str(e)}"
@@ -147,35 +138,36 @@ class ButtonLogic:
             self.cleanup()
             return False, "Threads are terminated."
 
-    def add_new_items(self, str_1:str, str_2:str, n:int=6):
-        list_1 = str_1.splitlines()
-        list_2 = str_2.splitlines()
-        if list_1 == list_2:
-            return True, list_1 # this is for the first adding.
+    def add_new_items(self, list_original:list, list_new:list, same_lines:int=6, skip_lines:int=1):
+        if skip_lines > 0:
+            list_original = list_original[skip_lines:]
+            list_new = list_new[skip_lines:]
+        if list_original == list_new:
+            return True, list_original # this is for the first adding.
         # Determine the comparison range: use all of list_1 if it's shorter than list_2
-        comparison_range = list_1[-len(list_2):] if len(list_1) >= len(list_2) else list_1
+        comparison_range = list_original[-len(list_new):] if len(list_original) >= len(list_new) else list_original
         # Check if list_2 is already included in list_1
-        if all(item in list_1 for item in list_2):
+        if all(item in list_original for item in list_new):
             return False  # If all items in list_2 are already in list_1, return False
         # Advanced mode: check if the first `n` items match between the end of list_1 and the start of list_2
         consecutive_match = True
-        for i in range(min(n, len(list_1), len(list_2))):  # Limit to the shortest list or `n`
-            if list_1[-(i+1)] != list_2[-(i+1)]:
+        for i in range(min(same_lines, len(list_original), len(list_new))):  # Limit to the shortest list or `n`
+            if list_original[-(i+1)] != list_new[-(i+1)]:
                 consecutive_match = False
                 break
         # Flag to indicate if something was added
         added = False
         # If advanced mode conditions are met (n consecutive items match), append the rest of list_2
-        if consecutive_match and len(list_1) >= n:
-            list_1.extend(list_2[n:])
+        if consecutive_match and len(list_original) >= same_lines:
+            list_original.extend(list_new[same_lines:])
             added = True
         else:
             # Fall back to single-item comparison mode
-            for item in list_2:
+            for item in list_new:
                 if item not in comparison_range:
-                    list_1.append(item)
+                    list_original.append(item)
                     added = True
-        return added, '\n'.join(list_1)  # Return True if something was added, False otherwise
+        return added, '\n'.join(list_original)  # Return True if something was added, False otherwise
 
     def cleanup(self):
         for thread in self.active_threads:
@@ -197,3 +189,17 @@ class ButtonLogic:
 
     def call_back_result(self, file_content):
         self.result = file_content
+
+    def commands_processing(self, command:str, command_result:list, argument:str = ''):
+        command_result_str = '\n'.join(command_result)
+        if 'SY:' in command:
+            sy = handle_sy.SY(command_result_str, argument)
+            self._arrival_flight = sy.flight
+            self._arrival_leg = sy.leg
+            self._SeatCnf = sy.seat_configuration
+            self._ac_reg = sy.ac_reg
+            self._arrival_pax = sy.checked
+        elif 'SE:' in command:
+            se = handle_se.SE(command_result_str, argument)
+            self._arrival_block_seats = se.combination_seats 
+        return self.result

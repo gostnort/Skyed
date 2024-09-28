@@ -1,4 +1,4 @@
-label: "Sample: CA983/984/30JUN24/01JUL24/PEK  or  984/PEK"
+label: "Sample: CA818/818/01JUN24/01JUN24/PEK"
 info_box_default: "984/PEK"
 input_sample: "AirlineInbound_flight/Outbound_flight/Date_inbound/Date_outbound/Arrival_flight_departure_airport"
 buttons:

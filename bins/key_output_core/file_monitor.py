@@ -28,7 +28,7 @@ class FileMonitor(threading.Thread):
                             print(f"File changed: {file_path}")
                             with open(file_path, 'r') as file:
                                 file.seek(self.last_size[file_path])
-                                new_content = file.read()
+                                new_content = file.readlines()
                                 if new_content:
                                     print(f"New content in {file_path}: {new_content}")
                                     self.result.append(new_content)
@@ -83,9 +83,8 @@ if __name__ == "__main__":
         print(f"Callback received: {content}")
 
     # Define two example file paths
-    file_path_1 = os.path.join(os.getcwd(), "resources", "2024_09_19_2.log")
-    file_path_2 = os.path.join(os.getcwd(), "resources", "2024_09_20_2.log")
-    
+    file_path_1 = os.path.join(os.getcwd(), "resources", "2024_06_01_2.log")
+    file_path_2 = os.path.join(os.getcwd(), "resources", "2024_05_31_2.log")    
     print(f"Monitoring files: {file_path_1} and {file_path_2}")
     
     # Create and start a FileMonitor instance with both file paths
@@ -97,7 +96,7 @@ if __name__ == "__main__":
             if not monitor.is_alive():
                 print("FileMonitor thread is not alive. Restarting...")
                 monitor = FileMonitor.create_and_start([file_path_1, file_path_2], callback=example_callback)
-                print(f"Current result: {monitor.result}")
+                print(f"Result is: {monitor.result}")
             time.sleep(TIME_OUT_SECOND)
     except KeyboardInterrupt:
         print("Stopping monitor...")

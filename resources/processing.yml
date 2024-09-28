@@ -4,9 +4,11 @@ arrival_section:
   - sy:
     command: "SY: {arrival_flight_number}/{arrival_date}/{arrival}"
     pages_command: "PF1"
+    argument: "{arrival}"
   - se:
     command: "SE:{arrival_flight_number}/{arrival_date}/*{arrival}LAX"
     pages_command: "PF1"
+    argument: "X"
 departure_section:
   - av: 
     command: "AV:{departure_flight_number}/{departure_date}"
