@@ -9,6 +9,9 @@ import os
 import ctypes
 import re
 from datetime import datetime, timedelta
+import win32gui
+import win32con
+import win32api
 
 # Add the bins directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -53,26 +56,51 @@ class SendKey(threading.Thread):
         self.__flag.set()
         self.__lock = threading.Lock()
 
-    def __type_keys(self, keys):
+    def __type_keys(self, keys, hwnd=None):
         print(f"{threading.current_thread().name} is sending {keys}.")
-        with self.__lock: # Ensure the other threads won't be executed before this function is over.
-            if isinstance(keys, str):  # Handle string.
-                self.__type_string(keys)
+        with self.__lock:
+            if isinstance(keys, str):
+                self.__type_string(keys, hwnd)
                 return
-            if isinstance(keys, list):  # Handle key combinations
+            if isinstance(keys, list):
                 for key in keys:
-                    self.__keyboard.press(key)
+                    self.__send_key(key, hwnd, win32con.WM_KEYDOWN)
                 for key in reversed(keys):
-                    self.__keyboard.release(key)
+                    self.__send_key(key, hwnd, win32con.WM_KEYUP)
             else:
-                self.__keyboard.press(keys)
-                self.__keyboard.release(keys)
+                self.__send_key(keys, hwnd, win32con.WM_KEYDOWN)
+                self.__send_key(keys, hwnd, win32con.WM_KEYUP)
 
-    def __type_string(self, string):
+    def __type_string(self, string, hwnd=None):
         for char in string:
-            self.__keyboard.press(char)
-            self.__keyboard.release(char)
+            self.__send_key(char, hwnd, win32con.WM_CHAR)
             time.sleep(0.02)
+
+    def __send_key(self, key, hwnd, msg):
+        if hwnd:
+            if isinstance(key, str):
+                win32api.SendMessage(hwnd, msg, ord(key), 0)
+            else:
+                vk_code = self.__get_vk_code(key)
+                win32api.SendMessage(hwnd, msg, vk_code, 0)
+        else:
+            if msg == win32con.WM_KEYDOWN:
+                self.__keyboard.press(key)
+            elif msg == win32con.WM_KEYUP:
+                self.__keyboard.release(key)
+            elif msg == win32con.WM_CHAR:
+                self.__keyboard.press(key)
+                self.__keyboard.release(key)
+
+    def __get_vk_code(self, key):
+        if isinstance(key, Key):
+            return {
+                Key.esc: win32con.VK_ESCAPE,
+                Key.f12: win32con.VK_F12,
+                Key.ctrl: win32con.VK_CONTROL,
+                # Add more mappings as needed
+            }.get(key, 0)
+        return 0
 
     def __pause(self):
         self.__flag.clear() # block the thread.
@@ -81,7 +109,7 @@ class SendKey(threading.Thread):
         self.__flag.set() # unblock the thread.
 
     # F12PendingFunc must be the ScreenCapture() class including Get1stImage() and start().
-    def execute_command(self, OutputText:str, F12PendingFunc:None, bClear=True, bEsc=True, bF12=True, bPrint=True):
+    def execute_command(self, OutputText:str, F12PendingFunc:None, bClear=True, bEsc=True, bF12=True, bPrint=True, hwnd=None):
         key_combinations = []
         if bClear:
             key_combinations.append([Key.ctrl, 'a']) 
@@ -92,13 +120,13 @@ class SendKey(threading.Thread):
             key_combinations.append(Key.f12)
         if bPrint:
             key_combinations.append([Key.ctrl, 'p'])
-        with concurrent.futures.ThreadPoolExecutor() as executor: # Call .start() automatically..
+        with concurrent.futures.ThreadPoolExecutor() as executor:
             for key in key_combinations:
-                executor.submit(self.__type_keys, key)
-                if key == Key.f12: # From now on, the main thread will running the rest, excpet `future`.
+                executor.submit(self.__type_keys, key, hwnd)
+                if key == Key.f12:
                     print('F12 is pressed.')
                     start_time = time.time()
-                    future = executor.submit(F12PendingFunc) # A new thread for another function to mensure the time.
+                    future = executor.submit(F12PendingFunc)
                     while True:
                         if future.done():
                             print(f"{threading.current_thread().name} ends the F12_While due to reaching foreign pending time.")
@@ -107,7 +135,6 @@ class SendKey(threading.Thread):
                             print(f"{threading.current_thread().name} ends the F12_While due to reaching max delay time.")
                             break
                         time.sleep(0.05)
-                    # Wait for the result from F12PendingFunc
                     result = future.result()
                     if result is None:
                         print("No result received from F12PendingFunc")

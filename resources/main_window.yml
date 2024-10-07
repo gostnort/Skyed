@@ -8,6 +8,8 @@ menu:
   main: "Main Menu"
   briefing: "Briefing"
   crew_gendec: "Crew GenDec"
+  pick_win: "Click for Preparation"
+  send_sample: "Send Testing"
 
 stylesheets:
   main_window: |

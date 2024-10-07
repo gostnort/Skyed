@@ -5,8 +5,11 @@ import time
 from datetime import datetime
 from bins.key_output_core import output_simulate
 from bins.key_output_core.output_simulate import is_thread_alive, terminate_thread
-from bins.commands_processing import handle_sy, handle_av, handle_se, handle_pd
+from bins.commands_processing import handle_sy, handle_se, handle_se, handle_pd
 import threading
+import ctypes
+from ctypes import wintypes
+import win32gui
 
 class ConfigManager:
     def __init__(self, resources_path):
@@ -75,6 +78,8 @@ class ButtonLogic:
         self._departure_bdt = ''
         self.TIME_OUT_SECOND = 1
         self.active_threads = []
+        self.selected_hwnd = None
+        self.selected_window_title = None
 
     def arrival_button_logic(self, resources_path, yaml_arg):
         config_manager = ConfigManager(resources_path)
@@ -203,3 +208,68 @@ class ButtonLogic:
             se = handle_se.SE(command_result_str, argument)
             self._arrival_block_seats = se.combination_seats 
         return self.result
+
+    def pick_window(self):
+        user32 = ctypes.windll.user32
+
+        def get_window_text(hwnd):
+            length = user32.GetWindowTextLengthW(hwnd)
+            buf = ctypes.create_unicode_buffer(length + 1)
+            user32.GetWindowTextW(hwnd, buf, length + 1)
+            return buf.value
+
+        def enum_child_windows(hwnd):
+            child_windows = []
+            def enum_callback(child_hwnd, lParam):
+                child_windows.append(child_hwnd)
+                return True
+            user32.EnumChildWindows(hwnd, ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)(enum_callback), 0)
+            return child_windows
+
+        def find_mdi_client(hwnd):
+            child_windows = enum_child_windows(hwnd)
+            for child in child_windows:
+                class_name = win32gui.GetClassName(child)
+                if class_name == "Scintilla":
+                    return child
+            return None
+
+        def find_mdi_child(mdi_client):
+            child_windows = enum_child_windows(mdi_client)
+            # You might need to adjust this logic based on how you want to identify the correct MDI child
+            return child_windows[0] if child_windows else None
+
+        def on_click(x, y, button, pressed):
+            if pressed:
+                point = wintypes.POINT(x, y)
+                main_hwnd = user32.WindowFromPoint(point)
+                main_title = get_window_text(main_hwnd)
+                
+                mdi_client = find_mdi_client(main_hwnd)
+                if mdi_client:
+                    mdi_child = find_mdi_child(mdi_client)
+                    if mdi_child:
+                        self.selected_hwnd = mdi_child
+                        self.selected_window_title = get_window_text(mdi_child)
+                    else:
+                        self.selected_hwnd = mdi_client
+                        self.selected_window_title = "MDI Client"
+                else:
+                    self.selected_hwnd = main_hwnd
+                    self.selected_window_title = main_title
+
+                print(f"Main Window: {main_title} (HWND: {main_hwnd})")
+                print(f"Selected Window: {self.selected_window_title} (HWND: {self.selected_hwnd})")
+                return False  # Stop listening for clicks
+
+        print("Click on the window you want to select.")
+        with output_simulate.mouse_listener(on_click=on_click) as listener:
+            listener.join()
+
+        if self.selected_hwnd and self.selected_window_title:
+            return True, f"Window Handle: {self.selected_hwnd}\nTitle: {self.selected_window_title}"
+        else:
+            return False, "No window was selected."
+
+    def get_selected_window(self):
+        return self.selected_hwnd, self.selected_window_title
