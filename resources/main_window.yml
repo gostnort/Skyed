@@ -3,8 +3,8 @@ main_window_width: 600
 main_window_height: 400
 main_window_min_width: 400
 main_window_min_height: 300
-target_window_title: "Notepad++"
-child_window_class: "Scintilla"
+target_window_title: "Notepad++" #"eTerm3"
+child_window_class: "Scintilla" #"AfxFrameOrView42"
 
 menu:
   main: "Main Menu"
