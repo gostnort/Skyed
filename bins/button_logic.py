@@ -6,10 +6,14 @@ from datetime import datetime
 from bins.key_output_core import output_simulate
 from bins.key_output_core.output_simulate import is_thread_alive, terminate_thread
 from bins.commands_processing import handle_sy, handle_se, handle_se, handle_pd
-import threading
 import ctypes
 from ctypes import wintypes
 import win32gui
+from PySide6.QtWidgets import QInputDialog, QApplication
+from bins.key_output_core.output_simulate import SendKey
+from bins.key_output_core.send_key_process import send_keys_background
+from PySide6.QtCore import QTimer, QEventLoop
+from pynput import mouse
 
 class ConfigManager:
     def __init__(self, resources_path):
@@ -79,7 +83,7 @@ class ButtonLogic:
         self.TIME_OUT_SECOND = 1
         self.active_threads = []
         self.selected_hwnd = None
-        self.selected_window_title = None
+        self.send_key = SendKey()
 
     def arrival_button_logic(self, resources_path, yaml_arg):
         config_manager = ConfigManager(resources_path)
@@ -209,67 +213,134 @@ class ButtonLogic:
             self._arrival_block_seats = se.combination_seats 
         return self.result
 
-    def pick_window(self):
-        user32 = ctypes.windll.user32
+    def pick_window(self, target_title, child_class):
+        self.target_title = target_title
+        self.child_class = child_class
+        self.selected_hwnd = None
+        self.selected_window_title = None
 
-        def get_window_text(hwnd):
-            length = user32.GetWindowTextLengthW(hwnd)
-            buf = ctypes.create_unicode_buffer(length + 1)
-            user32.GetWindowTextW(hwnd, buf, length + 1)
-            return buf.value
+        print("Click on the window you want to select within 5 seconds, or wait for automatic selection.")
+        
+        # Create a QEventLoop to wait for either a click or timeout
+        loop = QEventLoop()
+        timer = QTimer()
+        timer.setSingleShot(True)
+        timer.timeout.connect(loop.quit)
+        
+        def on_click(x, y, button, pressed):
+            if pressed and button == mouse.Button.left:
+                self.selected_hwnd = win32gui.WindowFromPoint((x, y))
+                self.selected_window_title = win32gui.GetWindowText(self.selected_hwnd)
+                loop.quit()
+                return False  # Stop listener
 
-        def enum_child_windows(hwnd):
-            child_windows = []
-            def enum_callback(child_hwnd, lParam):
-                child_windows.append(child_hwnd)
-                return True
-            user32.EnumChildWindows(hwnd, ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)(enum_callback), 0)
-            return child_windows
+        listener = mouse.Listener(on_click=on_click)
+        listener.start()
+        
+        timer.start(5000)  # 5 seconds timeout
+        loop.exec_()  # Start the event loop
+        
+        listener.stop()  # Ensure the listener is stopped
 
-        def find_mdi_client(hwnd):
-            child_windows = enum_child_windows(hwnd)
-            for child in child_windows:
-                class_name = win32gui.GetClassName(child)
-                if class_name == "Scintilla":
-                    return child
+        if self.selected_hwnd:
+            print(f"Selected window: {self.selected_window_title} (HWND: {self.selected_hwnd})")
+            return self.process_selected_window([self.selected_hwnd], callback=self.show_window_selection_dialog)
+        else:
+            print("No window clicked. Searching for target window...")
+            return self.find_target_window(callback=self.show_window_selection_dialog)
+
+    def show_window_selection_dialog(self, buttons):
+        choice, ok = QInputDialog.getItem(None, "Select HWND", "Choose a window handle:", buttons, 0, False)
+        
+        if ok and choice != "Cancel":
+            return int(choice)
+        else:
             return None
 
-        def find_mdi_child(mdi_client):
-            child_windows = enum_child_windows(mdi_client)
-            # You might need to adjust this logic based on how you want to identify the correct MDI child
-            return child_windows[0] if child_windows else None
+    def find_target_window_internal(self, target_title, child_class):
+        def enum_windows_callback(hwnd, results):
+            if win32gui.IsWindowVisible(hwnd):
+                window_title = win32gui.GetWindowText(hwnd)
+                if target_title.lower() in window_title.lower():
+                    results.append(hwnd)
+            return True
 
-        def on_click(x, y, button, pressed):
-            if pressed:
-                point = wintypes.POINT(x, y)
-                main_hwnd = user32.WindowFromPoint(point)
-                main_title = get_window_text(main_hwnd)
-                
-                mdi_client = find_mdi_client(main_hwnd)
-                if mdi_client:
-                    mdi_child = find_mdi_child(mdi_client)
-                    if mdi_child:
-                        self.selected_hwnd = mdi_child
-                        self.selected_window_title = get_window_text(mdi_child)
-                    else:
-                        self.selected_hwnd = mdi_client
-                        self.selected_window_title = "MDI Client"
-                else:
-                    self.selected_hwnd = main_hwnd
-                    self.selected_window_title = main_title
+        results = []
+        win32gui.EnumWindows(enum_windows_callback, results)
 
-                print(f"Main Window: {main_title} (HWND: {main_hwnd})")
-                print(f"Selected Window: {self.selected_window_title} (HWND: {self.selected_hwnd})")
-                return False  # Stop listening for clicks
+        if not results:
+            return None, f"No window with title containing '{target_title}' found."
 
-        print("Click on the window you want to select.")
-        with output_simulate.mouse_listener(on_click=on_click) as listener:
-            listener.join()
+        main_hwnd = results[0]
+        child_hwnds, class_info = self.find_child_windows(main_hwnd, child_class)
 
-        if self.selected_hwnd and self.selected_window_title:
-            return True, f"Window Handle: {self.selected_hwnd}\nTitle: {self.selected_window_title}"
+        if not child_hwnds:
+            return None, f"No child windows with class '{child_class}' found."
+
+        return child_hwnds, class_info
+
+    def find_child_windows(self, parent_hwnd, target_class):
+        child_hwnds = []
+        class_info = []
+
+        def enum_child_windows_callback(hwnd, _):
+            class_name = win32gui.GetClassName(hwnd)
+            class_info.append(f"HWND: {hwnd}, Class: {class_name}")
+            if class_name == target_class:
+                child_hwnds.append(hwnd)
+            win32gui.EnumChildWindows(hwnd, enum_child_windows_callback, None)
+            return True
+
+        win32gui.EnumChildWindows(parent_hwnd, enum_child_windows_callback, None)
+        print("Found classes and their HWNDs:")
+        for info in class_info:
+            print(info)
+        return child_hwnds, "\n".join(class_info)
+
+    def process_selected_window(self, child_hwnds=None, callback=None):
+        if child_hwnds is None:
+            child_hwnds = [self.selected_hwnd]
+
+        buttons = self.send_test_strings(child_hwnds)
+
+        if callback:
+            selected_hwnd = callback(buttons)
+        else:
+            selected_hwnd = self.show_window_selection_dialog(buttons)
+
+        if selected_hwnd:
+            confirmation_message = self.send_confirmation(selected_hwnd)
+            return True, confirmation_message
         else:
             return False, "No window was selected."
 
-    def get_selected_window(self):
-        return self.selected_hwnd, self.selected_window_title
+    def find_target_window(self, callback=None):
+        child_hwnds, message = self.find_target_window_internal(self.target_title, self.child_class)
+
+        if child_hwnds is None:
+            return False, message
+
+        return self.process_selected_window(child_hwnds, callback)
+
+    def send_test_strings(self, hwnds):
+        buttons = []
+
+        for hwnd in hwnds:
+            thread_pool_string = f"Thread pool test for hwnd: {hwnd}\n\r"
+            multiprocessing_string = f"Multiprocessing test for hwnd: {hwnd}\n\r"
+
+            # Thread pool method
+            self.send_key.execute_command(thread_pool_string, None, bClear=False, bEsc=False, bF12=False, bPrint=False, hwnd=hwnd)
+
+            # Multiprocessing method
+            send_keys_background(hwnd, multiprocessing_string)
+
+            buttons.append(str(hwnd))
+
+        buttons.append("Cancel")
+        return buttons
+
+    def send_confirmation(self, selected_hwnd):
+        confirm_string = f"Confirmed selection of hwnd: {selected_hwnd}\n\r"
+        self.send_key.execute_command(confirm_string, None, bClear=False, bEsc=False, bF12=False, bPrint=False, hwnd=selected_hwnd)
+        return f"Sent confirmation to hwnd: {selected_hwnd}"

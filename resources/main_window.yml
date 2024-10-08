@@ -3,13 +3,14 @@ main_window_width: 600
 main_window_height: 400
 main_window_min_width: 400
 main_window_min_height: 300
+target_window_title: "Notepad++"
+child_window_class: "Scintilla"
 
 menu:
   main: "Main Menu"
   briefing: "Briefing"
   crew_gendec: "Crew GenDec"
   pick_win: "Click for Preparation"
-  send_sample: "Send Testing"
 
 stylesheets:
   main_window: |
